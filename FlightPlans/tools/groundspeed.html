@@ -1,0 +1,46 @@
+<html>  
+  <head>  
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0">  
+    <link href="../css/main.css" rel="stylesheet" media="screen"/>  
+    <script src="../js/eb6.js" type="text/javascript"></script><!-- don't remove -->
+    <script src="../js/css_selector.js" type="text/javascript"></script><!-- don't remove -->
+  </head>  
+  <body>  
+    <h1><div class="leftButton" onclick="history.back();return false">Back</div>AEROTOUR INTRANET</h1>  
+    <h2>Course, Ground Speed, And Wind Correction Angle Calculator</h2>  
+    <ul> 
+    	<form id="calcGndSpdCrsWca">
+      <li>
+        <table align="center" cellpadding="5" width="600">
+            <tr>
+                <td width="80%">Result can be either Knots or MPH based on consistent entry of the same designation.</td>
+            </tr>
+            <tr>
+                <td>Enter&nbsp;&nbsp; <input type="text" name="windSpd" size="6"> Wind Speed</td>
+            </tr>
+            <tr>
+                <td>Enter&nbsp;&nbsp; <input type="text" name="windDir" size="6"> Wind Direction</td>
+            </tr>
+            <tr>
+                <td>Enter&nbsp;&nbsp; <input type="text" name="TAS" size="6"> True Airspeed</td>
+            </tr>
+            <tr>
+                <td>Enter&nbsp;&nbsp; <input type="text" name="heading" size="6"> Heading</td>
+            </tr>
+            <tr>
+                <td align="center">
+                <input type="button" name="Submit4" value="Calculate Course, GS and WCA " onclick="GndSpdCrsWca(this.form)">
+                <input type="reset" name="Reset4" value="Clear Course, GS and WCA Values"></td>
+            </tr>
+        </table>
+      </li>  
+      <li>
+      	<b>Calculated&nbsp;&nbsp;</b> <input type="text" name="course" size="6" readonly> <b>Course</b><br>
+      	<b>Calculated&nbsp;&nbsp;</b> <input type="text" name="GS" size="6" readonly> <b>Ground Speed</b><br>
+      	<b>Calculated&nbsp;&nbsp;</b> <input type="text" name="WCA" size="6" readonly> <b>Wind Correction Angle</b>
+      </li>
+      </form>
+    </ul>  
+  </body>  
+</html>

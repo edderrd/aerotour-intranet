@@ -1,0 +1,107 @@
+TH {
+	/*background-color: #040f1a;*/
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#b0bccd), color-stop(0.5, #889bb3), color-stop(0.5, #8195af), to(#6d84a2));
+	border: 1px solid #d1d1d1;
+	color: #040f1a;
+	font: 9pt "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+.linux.gecko th {
+	background:url('../images/tabbar.png') repeat-x 0 0;
+	color: #fff;
+}
+.win.gecko th {
+	background:url('../images/tabbar.png') repeat-x 0 0;
+	color: #fff;
+}
+.win.ie th {
+	background:url('../images/tabbar.png') repeat-x 0 0;
+	color: #fff;
+}
+
+TD {
+	background-color: White;
+	border: 1px solid #d1d1d1;
+	font: 9pt "Lucida Grande", Lucida, Verdana, sans-serif;
+	color: #000;
+}
+
+TD.coloured {
+	background-color: #edf2fb;
+	border: 1px solid #d1d1d1;
+	color: #000;
+}
+
+TD.colouredNoBorder {
+	background-color: #edf2fb;
+	border: none;
+	color: Black;
+}
+
+input.highlightAlt {
+/* used to highlight Magnetic Heading and Flight Level cells */
+	border: 2px solid Red;
+	font-weight: bold;
+	color: Black;
+	background: #edf2fb;
+	text-align: center;
+}
+
+input.highlight {
+	border: 2px solid Red;
+	font-weight: bold;
+	color: Black;
+	text-align: center;
+}
+
+input.highlightGreen {
+	border: 2px solid #32CD32;
+	color: Black;
+	text-align: center;
+}
+
+input.inputs {
+	background: White;
+	border: 1px solid #FFFFFF;
+	color: Black;
+}
+
+input.inputsAlt {
+	background: #edf2fb;
+	border: 0px none #edf2fb;
+	color: Black;
+}
+
+input.inputsAltCentered {
+	background: White;
+	border: 0px none #FFFFFF;
+	color: Black;
+	text-align: center;
+}
+
+Table {
+	border: 1px Black;
+}
+
+table.tableOne {
+	position: static;
+	left: 0px;
+}
+
+pre {
+	font: 1.2em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	display: inline-block;
+}
+pre:before {
+	content: " | "
+}
+
+
+@media all
+{
+	.page-break	{ display:none; }
+}
+
+@media print
+{
+	.page-break	{ display:block; page-break-before:always; }
+}

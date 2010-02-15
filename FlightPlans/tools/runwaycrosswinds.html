@@ -1,0 +1,47 @@
+<html>  
+  <head>  
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0">  
+    <link href="../css/main.css" rel="stylesheet" media="screen"/>  
+    <script src="../js/eb6.js" type="text/javascript"></script><!-- don't remove -->
+    <script src="../js/css_selector.js" type="text/javascript"></script><!-- don't remove -->
+  </head>  
+  <body>  
+    <h1><div class="leftButton" onclick="history.back();return false">Back</div>AEROTOUR INTRANET</h1>  
+    <h2>Runway Crosswinds Calculator</h2>  
+    <ul> 
+    	<form id="Rway"> 
+      <li>
+        <table align="center" cellpadding="5" width="600">
+            <tr>
+                <td>Enter&nbsp;&nbsp; <input size="3" name="runwayd"> &nbsp;Runway Compass Heading</td>
+            </tr>
+            <tr>
+                <td>Enter&nbsp;&nbsp; <input size="3" name="wdirection"> &nbsp;Wind (From) Compass Direction</td>
+            </tr>
+            <tr>
+                <td>Enter&nbsp;&nbsp; <input size="3" name="wspeed"> &nbsp;Wind Speed In Knots or MPH</td>
+            </tr>
+            <tr>
+                <td align="middle">
+                <input onclick="compute(this.form)" type="button" value="Calculate Crosswind">
+                <input type="reset" name="Reset9" value="Clear Crosswind Values"></td>
+            </tr>
+        </table>
+      </li>
+      <li>
+      	<table>
+            <tr>
+                <td><b>Calculated&nbsp;&nbsp;</b>
+                <input size="3" name="cwresult" readonly> &nbsp;Crosswind In Knots or MPH From <input size="5" name="d" value="ahead"></td>
+            </tr>
+            <tr>
+                <td><b>Calculated&nbsp;&nbsp;</b>
+                <input size="3" name="cwresultloss" readonly> &nbsp;Forward Ground Speed <input size="5" name="g" value="loss"> In Knots or MPH</td>
+            </tr>
+          </table>
+      </li>
+      </form> 
+    </ul>  
+  </body>  
+</html>

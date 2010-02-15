@@ -1,0 +1,102 @@
+TH {
+	background-color: Black;
+	border: 1px solid Black;
+	font-size: 9pt;
+	font-weight: normal;
+	color: White;
+}
+
+TD {
+	background-color: White;
+	border: 1px solid #999999;
+	font-size: 9pt;
+	color: Black;
+}
+
+TD.coloured {
+	background-color: #CCCCCC;
+	border: 1px solid Black;
+	color: Black;
+}
+
+TD.colouredNoBorder {
+	background-color: #999999;
+	border: none;
+	color: Black;
+}
+
+input.highlightAlt {
+/* used to highlight Magnetic Heading and Flight Level cells */
+	border: 2px solid Red;
+	font-weight: bold;
+	color: Black;
+	background: #CCCCCC;
+	text-align: center;
+}
+
+input.highlight {
+	border: 2px solid Red;
+	font-weight: bold;
+	color: Black;
+	text-align: center;
+}
+
+input.highlightGreen {
+	border: 2px solid #32CD32;
+	color: Black;
+	text-align: center;
+}
+
+input.inputs {
+	background: White;
+	border: 1px solid #FFFFFF;
+	color: Black;
+}
+
+input.inputsAlt {
+	background: #CCCCCC;
+	border: 1px solid #CCCCCC;
+	color: Black;
+}
+
+input.inputsAltCentered {
+	background: White;
+	border: 1px solid #FFFFFF;
+	color: Black;
+	text-align: center;
+}
+
+Table {
+	border: 1px Black;
+}
+
+.noPrint {
+	display: none;
+}
+li {
+	list-style-type: none;
+}
+
+table.tableOne {
+	position: static;
+	left: 0px;
+}
+
+pre {
+	font: 0.6em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	display: inline-block;
+}
+pre:before {
+	content: " | "
+}
+
+
+@media all
+{
+	.page-break	{ display:none; }
+}
+
+@media print
+{
+	.page-break	{ display:block; page-break-before:always; }
+}

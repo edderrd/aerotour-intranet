@@ -1,0 +1,38 @@
+<html>  
+  <head>  
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0">  
+    <link href="../css/main.css" rel="stylesheet" media="screen"/>  
+    <script src="../js/eb6.js" type="text/javascript"></script><!-- don't remove -->
+    <script src="../js/css_selector.js" type="text/javascript"></script><!-- don't remove -->
+  </head>  
+  <body>  
+    <h1><div class="leftButton" onclick="history.back();return false">Back</div>AEROTOUR INTRANET</h1>  
+    <h2>True Airspeed (TAS or KTAS) Calculator</h2>  
+    <ul>  
+    	<form id="calcTAS">
+      <li>
+        <table align="center" cellpadding="5" width="600">
+            <tr>
+                <td width="80%">Result can be either Knots or MPH based on consistent entry of the same designation. The formula is (IAS) + (.02 x MSL / 1000).</td>
+            </tr>
+            <tr>
+                <td>Enter&nbsp;&nbsp; <input type="text" name="ias" size="6"> Indicated Airspeed</td>
+            </tr>
+            <tr>
+                <td>Enter&nbsp;&nbsp; <input type="text" name="msla" size="6"> MSL Altitude</td>
+            </tr>
+            <tr>
+                <td align="center">
+                <input type="button" name="Submit20" value="Calculate True Airspeed" onclick="tairSpeed(this.form)">
+                <input type="reset" name="Reset20" value="Clear True Airspeed Values"></td>
+            </tr>
+        </table>
+      </li>
+      <li>
+      	<b>Calculated True Airpeed =</b> <input type="text" name="tas" size="6" align="center" readonly>
+      </li>
+      </form>  
+    </ul>  
+  </body>  
+</html>

@@ -1,0 +1,107 @@
+{
+      "type": "Helicopter",
+      "zone": "Pacific North",
+      "flight": "MRPV-MRCR",
+		"route": [
+		{	
+		  "point":"MRPV",
+		  "cordinates":new GLatLng(9.958029,-84.139670), 
+		  "course":"291",
+		  "distance":"2.7",
+		  "altitude":"3600",
+		  "markerImage":"../images/maps/aa-start.png",
+		  "frequency": "118.3",
+		  "runway": "09/27",
+		  "length": "1600",
+		  "ground": "asphalt"
+		},
+		{	
+		  "point":"PEDRE",
+		  "cordinates":new GLatLng(9.975018,-84.182672), 
+		  "course":"256",
+		  "distance":"10.9",
+		  "altitude":"3500",
+		  "markerImage":"../images/maps/aa-marker.png",
+		  "frequency": "118.6"
+		},
+		{	
+		  "point":"BALSA",
+		  "cordinates":new GLatLng(9.931294,-84.361263), 
+		  "course":"263",
+		  "distance":"9.4",
+		  "altitude":"2500",
+		  "markerImage":"../images/maps/aa-marker.png",
+		  "frequency": "126.8"
+		},
+		{	
+		  "point":"OROTINA",
+		  "cordinates":new GLatLng(9.911895,-84.519587), 
+		  "course":"286",
+		  "distance":"15.5",
+		  "altitude":"1500",
+		  "markerImage":"../images/maps/aa-marker.png",
+		  "frequency": "123.0"
+		},
+		{	
+		  "point":"MRCH",
+		  "cordinates":new GLatLng(9.981752,-84.773482), 
+		  "course":"265",
+		  "distance":"4",
+		  "altitude":"2000",
+		  "markerImage":"../images/maps/aa-check.png",
+		  "frequency": "123.0",
+		  "runway": "09/27",
+		  "length": "1518",
+		  "ground": "asphalt"
+		},
+		{	
+		  "point":"PUNTARENA",
+		  "cordinates":new GLatLng(9.976009,-84.841216), 
+		  "course":"242",
+		  "distance":"4",
+		  "altitude":"3500",
+		  "markerImage":"../images/maps/aa-marker.png",
+		  "frequency": "126.8"
+		},
+		{	
+		  "point":"SAN LUKAS",
+		  "cordinates":new GLatLng(9.944746,-84.904277), 
+		  "course":"254",
+		  "distance":"20",
+		  "altitude":"2500",
+		  "markerImage":"../images/maps/aa-marker.png",
+		  "frequency": "123.0"
+		},
+		{	
+		  "point":"MRPA",
+		  "cordinates":new GLatLng(9.850759,-85.238187), 
+		  "course":"272",
+		  "distance":"8",
+		  "altitude":"1500",
+		  "markerImage":"../images/maps/aa-marker.png",
+		  "frequency": "126.8"
+		},
+		{	
+		  "point":"MRIA",
+		  "cordinates":new GLatLng(9.856168,-85.371036), 
+		  "course":"277",
+		  "distance":"7",
+		  "altitude":"1000",
+		  "markerImage":"../images/maps/aa-check.png",
+		  "frequency": "123.0",
+		  "runway": "03/21",
+		  "length": "800",
+		  "ground": "asphalt"
+		},
+		{	
+		  "point":"MRCR",
+		  "cordinates":new GLatLng(9.870546,-85.480780), 
+		  "markerImage":"../images/maps/aa-end.png",
+		  "frequency": "128.6",
+		  "runway": "09/27",
+		  "length": "1200",
+		  "ground": "gravel"
+		}
+		],
+      "approved": true
+ }

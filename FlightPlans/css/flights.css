@@ -1,0 +1,88 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables features
+ */
+
+.dataTables_wrapper {
+	position: relative;
+	clear: both;
+}
+
+.dataTables_processing {
+	position: absolute;
+	top: 5px;
+	left: 60%;
+	width: 200px;
+	margin-left: -125px;
+	border: 1px solid #ddd;
+	text-align: center;
+	color: #999;
+	font-size: 11px;
+	padding: 2px 0;
+}
+
+.dataTables_filter {
+	font-size: 0.7em;
+	padding-left: 13px;
+	margin: 5px;
+}
+.dataTables_filter input{
+    background:url('../images/form-input.png') 0 0 no-repeat;
+    color:#333;
+    font-weight: 700;
+    border:0;
+    height:32px;
+    width: 320px;
+    line-height:16px;
+    padding-left: 13px;
+}
+.linux.gecko .dataTables_filter input{
+    padding-top:10px;
+}
+.win.gecko .dataTables_filter input{
+    padding-top:10px;
+}
+.win.ie .dataTables_filter input{
+    padding-top:10px;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables display
+ */
+th {
+	padding: 3px;
+	/*background-color: #040f1a;*/
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#b0bccd), color-stop(0.5, #889bb3), color-stop(0.5, #8195af), to(#6d84a2));
+	border: 1px solid #d1d1d1;
+	color: #040f1a;
+	font: 9pt "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+
+
+.linux.gecko th {
+	background:url('../images/tabbar.png') repeat-x 0 0;
+	color: #fff;
+}
+.win.gecko th {
+	background:url('../images/tabbar.png') repeat-x 0 0;
+	color: #fff;
+}
+.win.ie th {
+	background:url('../images/tabbar.png') repeat-x 0 0;
+	color: #fff;
+}
+
+td {
+	padding: 3px;
+	text-align: center;
+	background-color: White;
+	font: 9pt "Lucida Grande", Lucida, Verdana, sans-serif;
+	color: #000;
+	border: 0.1em dotted #e8e8e8;
+}
+.dataTables_empty {
+	text-align: center;
+}
+
+.mouseOver {
+   background-color: #ffffcc;
+}
