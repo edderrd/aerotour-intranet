@@ -1,0 +1,8 @@
+AEROTOUR Intranet
+====================
+
+This is an internal application for Aerotour CR.
+- Check pilot schedule
+- Utilize predetermited flight routes
+
+Data is store in Json format and pulled using PHP/JS
