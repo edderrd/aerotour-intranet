@@ -514,19 +514,22 @@ fieldset {
   text-align: center;
 }
 .green {
-  background-color: #33ff44;
+  color: #33ff44;
 }
 .red {
-  background-color: #ff3322;
+  color: #ff3322;
 }
 .blue {
-  background-color: #0099ff;
+  color: #0099ff;
 }
 .hidden {
   display: none;
 }
 .center {
   text-align: center;
+}
+.board {
+  font-size: 1.5em;
 }
 
 /*BROWSER SELECTOR*/
