@@ -172,102 +172,90 @@
 		      <th>Actual</th> 
 		      <th>Freq.</th> 
 		      <th>Squawk</th> 
-		    </tr> 
-		    <tr> 
-		      <td class="coloured" rowspan="2">1</td> 
-		      <td><input name="from1" class="inputs" type="text" id="from1" size="10"/></td> 
-		      <td align="center"><input name="safe1" class="inputs" type="text" id="safe1" size="4" /></td> 
-		      <td align="center"><input onblur="itemChange(this.form,'trueTrack','1','0','360')" name="trueTrack1" class="inputs" type="text" id="trueTrack1" size="5" value="000" /></td> 
-		      <td><input onchange="itemChange(this.form,'windVel','1','0','360')" name="windVel1" class="inputs" type="text" id="windVel1" size="6" value="000/00" /></td> 
-		      <td align="center"><input onchange="itemChange(this.form,'magVar','1','0','360')" name="magVar1" type="text" class="inputs" id="magVar1" size="4" maxlength="4" value='0'  /></td> 
-		      <td align="center"><input class="inputs" name="drift1"  type="text" id="drift1" size="5" readonly="readonly"  /></td> 
-		      <td align="center" valign="top"><input class="inputs" name="groundSpeed1"  type="text" id="groundSpeed1" size="3" readonly="readonly" /></td> 
-		      <td align="center" valign="top"><input  onchange="itemChange(this.form,'distance','1','0','300')"  name="distance1" class="inputs" type="text" id="distance12" size="4" value="0" /></td> 
-		      <td align="center" valign="top"><input  name="time1" type="text" class="highlight" id="time1" size="3" readonly="readonly" /></td> 
-		      <td>&nbsp;</td> 
-		      <td align="center"><input name="FIS" class="inputs" type="text" id="FIS2" size="7" /></td> 
-		      <td align="center"><input name="vor" class="inputs" type="text" id="vor" size="7" /></td> 
-		      <td class="coloured" rowspan="2" align="center">1</td> 
-		    </tr> 
-		    <?php 
-		      require_once dirname(__FILE__) . "/PlanParser.php";
-		      
-		      $endPoint = $_GET['point'];
-		      $parser = new PlanParser($endPoint);
-    
-            ?>		      
-		        
-	      <?php foreach($parser->getData() as $row): ?>
-	      <tr> 
-		      <td class="coloured" rowspan="2"><?= $row['number'] ?></td> 
-		      <td><input name="from1" class="inputs" type="text" id="from1" size="10"/></td> 
-		      <td align="center"><input name="safe1" class="inputs" type="text" id="safe1" size="4" /></td> 
-		      <td align="center"><input onblur="itemChange(this.form,'trueTrack','1','0','360')" name="trueTrack1" class="inputs" type="text" id="trueTrack1" size="5" value="000" /></td> 
-		      <td><input onchange="itemChange(this.form,'windVel','1','0','360')" name="windVel1" class="inputs" type="text" id="windVel1" size="6" value="000/00" /></td> 
-		      <td align="center"><input onchange="itemChange(this.form,'magVar','1','0','360')" name="magVar1" type="text" class="inputs" id="magVar1" size="4" maxlength="4" value='0'  /></td> 
-		      <td align="center"><input class="inputs" name="drift1"  type="text" id="drift1" size="5" readonly="readonly"  /></td> 
-		      <td align="center" valign="top"><input class="inputs" name="groundSpeed1"  type="text" id="groundSpeed1" size="3" readonly="readonly" /></td> 
-		      <td align="center" valign="top"><input  onchange="itemChange(this.form,'distance','1','0','300')"  name="distance1" class="inputs" type="text" id="distance12" size="4" value="0" /></td> 
-		      <td align="center" valign="top"><input  name="time1" type="text" class="highlight" id="time1" size="3" readonly="readonly" /></td> 
-		      <td>&nbsp;</td> 
-		      <td align="center"><input name="FIS" class="inputs" type="text" id="FIS2" size="7" /></td> 
-		      <td align="center"><input name="vor" class="inputs" type="text" id="vor" size="7" /></td> 
-		      <td class="coloured" rowspan="2" align="center">1</td> 
-		    </tr> 
-		  <?php endforeach; ?>  
-  	      <tr>
-		      <td><input onBlur="setFrom(this.form, this.id)" name="to1" class="inputs" type="text" id="to1" size="10"/></td> 
-		      <td align="center"><input name="plan" class="highlight" type="text" id="plan" size="4" /></td> 
-		      <td colspan="3" align="left"><input name="textfield5" class="inputs" type="text" size="22" /></td> 
-		      <td align="center" ><input class="highlight" name="heading1"  type="text" id="heading1" size="4" readonly="readonly" /></td> 
-		      <td colspan="3" align="left" valign="top"><input name="textfield59" class="inputs" type="text" size="21" /></td> 
-		      <td>&nbsp;</td> 
-		      <td align="center"><input name="freq" class="inputs" type="text" id="freq" size="7" /></td> 
-		      <td align="center">&nbsp;</td> 
-		    </tr> 
-		    <tr> 
-		      <th colspan="7" align="right">Totals&nbsp;</th> 
-		      <td align="center"><input name="averageSpeed" class="highlightGreen" type="text" id="averageSpeed" size="3" readonly="readonly" /></td> 
-		      <td align="center"><input name="totalDistance" class="highlightGreen" type="text" id="totalDistance" size="4" readonly="readonly" /></td> 
-		      <td align="center"><input name="totalTime" class="highlightGreen"  type="text" id="totalTime" size="4" readonly="readonly" /></td> 
-		      <th colspan="4">&nbsp;</th> 
-		    </tr> 
-		  </table>
-		  
-		  <table width="100%" border="0" > 
-		    <tr> 
-		      <td  class="hidden" align="left" valign="top"><textarea name="textarea" cols="70" rows="11" >Notes.</textarea></td> 
-		      <td width="124"  align="right" valign="top" class="hidden">
-		      <table border="0" align="right" cellpadding="0" cellspacing="0" >
-		        <tr>
-		          <td class="coloured" colspan="2"><div align="left">Fuel Burn
-		                  <input name="fuelcons" class="inputs" type="text" id="fuelcons" value="10" size="2" maxlength="2" onchange="itemChange(this.form,'fuelcons','0','0','');" />
-		        per hour</div></td>
-		        </tr>
-		        <tr>
-		          <th width="65" align="left">Taxi</th>
-		          <td width="60" align="center"><input name="taxi" class="inputs" type="text" id="taxi" size="3" /></td>
-		        </tr>
-		        <tr>
-		          <th align="left">Enroute</th>
-		          <td align="center"><input name="enroute" class="inputs" type="text" id="enroute" size="3" /></td>
-		        </tr>
-		        <tr>
-		          <th align="left">Diversion</th>
-		          <td align="center"><input name="diversion" class="inputs" type="text" id="diversion" size="3" /></td>
-		        </tr>
-		        <tr>
-		          <th align="left">Reserve</th>
-		          <td align="center"><input name="reserve" class="inputs" type="text" id="reserve" size="3" /></td>
-		        </tr>
-		        <tr>
-		          <th align="left">TOTAL fuel required</th>
-		          <td align="left"><input name="total" class="inputs" type="text" id="total" size="6" /></td>
-		        </tr>
-		      </table>
-		      </td> 
-		  </table> 
-		</form> 
+		    </tr>
+                    <?php
+                        require_once dirname(__FILE__) . "/PlanParser.php";
+
+                        $endPoint = $_GET['point'];
+                        $parser = new PlanParser($endPoint);
+                        $route = $parser->getRoute();
+                    ?>
+	      <?php foreach( $route as $number => $row): ?>
+                <?php $rowNumber = $number + 1; ?>
+                <?php
+                    $rowClass = ($number %  2) == 0 ? 'class="coloured"' : "";
+                    $alterRowClass = ($number %  2) == 0 ? "" : 'class="coloured"';
+                ?>
+  	        <tr>
+                  <td <?= $alterRowClass ?> rowspan="2"><?= $rowNumber ?></td>
+                  <td <?= $rowClass ?> ><?= $row['point'] ?></td>
+                  <td <?= $rowClass ?> align="center"><?= $row['altitude'] ?></td>
+                  <td <?= $rowClass ?> align="center"><?= $row['course'] ?></td>
+                  <td <?= $rowClass ?> ><input onchange="itemChange(this.form,'windVel','1','0','360')" name="windVel1" class="inputs" type="text" id="windVel1" size="6" value="000/00" /></td>
+                  <td <?= $rowClass ?> align="center"><input onchange="itemChange(this.form,'magVar','1','0','360')" name="magVar1" type="text" class="inputs" id="magVar1" size="4" maxlength="4" value='0'  /></td>
+                  <td <?= $rowClass ?> align="center"><input class="inputs" name="drift1"  type="text" id="drift1" size="5" readonly="readonly"  /></td>
+                  <td <?= $rowClass ?> align="center" valign="top"><input class="inputs" name="groundSpeed1"  type="text" id="groundSpeed1" size="3" readonly="readonly" /></td>
+                  <td <?= $rowClass ?> align="center"><?= $row['distance'] ?></td>
+                  <td <?= $rowClass ?> align="center" valign="top"><input  name="time1" type="text" class="highlight" id="time1" size="3" readonly="readonly" /></td>
+                  <td <?= $rowClass ?> >&nbsp;</td>
+                  <td <?= $rowClass ?> align="center"><?= $row['frequency'] ?></td>
+                  <td <?= $rowClass ?> align="center"><input name="vor" class="inputs" type="text" id="vor" size="7" /></td>
+                  <td <?= $alterRowClass ?> rowspan="2" align="center"><?= $rowNumber ?></td>
+                </tr>
+                <tr>
+                  <td <?= $rowClass ?> ><?= $route[$rowNumber]['point'] ?></td>
+                  <td <?= $rowClass ?> align="center"></td>
+                  <td <?= $rowClass ?> colspan="3" align="left"><input name="textfield5" class="inputs" type="text" size="22" /></td>
+                  <td <?= $rowClass ?> align="center" ><input class="highlight" name="heading1"  type="text" id="heading1" size="4" readonly="readonly" /></td>
+                  <td <?= $rowClass ?> colspan="3" align="left" valign="top"><input name="textfield59" class="inputs" type="text" size="21" /></td>
+                  <td <?= $rowClass ?> >&nbsp;</td>
+                  <td <?= $rowClass ?> align="center"><input name="freq" class="inputs" type="text" id="freq" size="7" /></td>
+                  <td <?= $rowClass ?> align="center">&nbsp;</td>
+                </tr>
+             <?php endforeach; ?>
+                <tr>
+                  <th colspan="7" align="right">Totals&nbsp;</th>
+                  <td align="center"><input name="averageSpeed" class="highlightGreen" type="text" id="averageSpeed" size="3" readonly="readonly" /></td>
+                  <td align="center"><input name="totalDistance" class="highlightGreen" type="text" id="totalDistance" size="4" readonly="readonly" value="<?= $parser->getTotalDistance() ?>" /></td>
+                  <td align="center"><input name="totalTime" class="highlightGreen"  type="text" id="totalTime" size="4" readonly="readonly" /></td>
+                  <th colspan="4">&nbsp;</th>
+                </tr>
+              </table>
+
+              <table width="100%" border="0" >
+                <tr>
+                  <td  class="hidden" align="left" valign="top"><textarea name="textarea" cols="70" rows="11" >Notes.</textarea></td>
+                  <td width="124"  align="right" valign="top" class="hidden">
+                  <table border="0" align="right" cellpadding="0" cellspacing="0" >
+                    <tr>
+                      <td class="coloured" colspan="2"><div align="left">Fuel Burn
+                              <input name="fuelcons" class="inputs" type="text" id="fuelcons" value="10" size="2" maxlength="2" onchange="itemChange(this.form,'fuelcons','0','0','');" />
+                    per hour</div></td>
+                    </tr>
+                    <tr>
+                      <th width="65" align="left">Taxi</th>
+                      <td width="60" align="center"><input name="taxi" class="inputs" type="text" id="taxi" size="3" /></td>
+                    </tr>
+                    <tr>
+                      <th align="left">Enroute</th>
+                      <td align="center"><input name="enroute" class="inputs" type="text" id="enroute" size="3" /></td>
+                    </tr>
+                    <tr>
+                      <th align="left">Diversion</th>
+                      <td align="center"><input name="diversion" class="inputs" type="text" id="diversion" size="3" /></td>
+                    </tr>
+                    <tr>
+                      <th align="left">Reserve</th>
+                      <td align="center"><input name="reserve" class="inputs" type="text" id="reserve" size="3" /></td>
+                    </tr>
+                    <tr>
+                      <th align="left">TOTAL fuel required</th>
+                      <td align="left"><input name="total" class="inputs" type="text" id="total" size="6" /></td>
+                    </tr>
+                  </table>
+                  </td>
+              </table>
+            </form>
       </li>   
     </ul>
     

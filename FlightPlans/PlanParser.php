@@ -15,7 +15,12 @@ class PlanParser
         $this->_endPoint = $endPoint;
         $this->_data = $this->_parseData();
     }
-    
+
+    /**
+     * Get file content and converted to a array
+     *
+     * @return array
+     */
     protected function _parseData()
     {
         $filename = dirname(__FILE__) . "/data/MRPV-" . $this->_endPoint . ".txt";
@@ -24,22 +29,50 @@ class PlanParser
             throw new Exception("Wrong given endpoint");
         }
         
-        $file = file_get_contents($filename);        
-        $data = json_decode(stripslashes($file), true);
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
-        exit();
-    
+        $json = file_get_contents($filename);
+        $data = json_decode($json, true);
+        
+        return $data;
     }
     
-    
+
+    /**
+     * Return parsed data array
+     *
+     * @return array
+     */
     public function getData()
     {
         return $this->_data;
     }
 
+    /**
+     * Return routes array
+     *
+     * @return array
+     */
+    public function getRoute()
+    {
+        return $this->_data['route'];
+    }
 
+
+    /**
+     * Summarize all distances in routes and return it
+     * as a total
+     *
+     * @return long
+     */
+    public function getTotalDistance()
+    {
+        $rv = null;
+
+        foreach ($this->getRoute() as $row) {
+            $rv = $rv + $row['distance'];
+        }
+
+        return $rv;
+    }
     
 
 }

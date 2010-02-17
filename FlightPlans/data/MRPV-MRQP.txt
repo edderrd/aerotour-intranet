@@ -5,7 +5,7 @@
 		"route": [
 		{	
 		  "point":"MRPV",
-		  "cordinates":new GLatLng(9.958029,-84.139670), 
+		  "cordinates":"new GLatLng(9.958029,-84.139670)",
 		  "course":"291",
 		  "distance":"2.7",
 		  "altitude":"3600",
@@ -17,7 +17,7 @@
 		},
 		{	
 		  "point":"PEDRE",
-		  "cordinates":new GLatLng(9.975018,-84.182672), 
+		  "cordinates":"new GLatLng(9.975018,-84.182672)",
 		  "course":"256",
 		  "distance":"10.9",
 		  "altitude":"3500",
@@ -26,7 +26,7 @@
 		},
 		{	
 		  "point":"BALSA",
-		  "cordinates":new GLatLng(9.931294,-84.361263), 
+		  "cordinates":"new GLatLng(9.931294,-84.361263)",
 		  "course":"263",
 		  "distance":"9.4",
 		  "altitude":"2500",
@@ -35,7 +35,7 @@
 		},
 		{	
 		  "point":"OROTINA",
-		  "cordinates":new GLatLng(9.911895,-84.519587), 
+		  "cordinates":"new GLatLng(9.911895,-84.519587)",
 		  "course":"217",
 		  "distance":"8.4",
 		  "altitude":"1500",
@@ -44,7 +44,7 @@
 		},
 		{	
 		  "point":"RIO TARCOLES",
-		  "cordinates":new GLatLng(9.798963,-84.604937), 
+		  "cordinates":"new GLatLng(9.798963,-84.604937)",
 		  "course":"187",
 		  "distance":"11",
 		  "altitude":"2000",
@@ -53,7 +53,7 @@
 		},
 		{	
 		  "point":"JACO",
-		  "cordinates":new GLatLng(9.615520,-84.628473), 
+		  "cordinates":"new GLatLng(9.615520,-84.628473)",
 		  "course":"109",
 		  "distance":"31",
 		  "altitude":"1500",
@@ -62,7 +62,7 @@
 		},
 		{	
 		  "point":"MRQP",
-		  "cordinates":new GLatLng(9.442800,-84.129997), 
+		  "cordinates":"new GLatLng(9.442800,-84.129997)",
 		  "markerImage":"../images/maps/aa-end.png",
 		  "frequency": "126.8",
 		  "runway": "03/21",

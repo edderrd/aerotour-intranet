@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"> 
 	<head> 
 		<meta http-equiv="content-type" content="text/html; charset=utf-8"/> 
-		<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAQ2Bjps73vB8iCOm6sHY0exRXVcmsZpYJoXnJ-v26hVmq22y-QhT5PPnE1PQfJ8gxxNJollpRIpN1wQ" type="text/javascript"></script> 
+		<!--<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAQ2Bjps73vB8iCOm6sHY0exRXVcmsZpYJoXnJ-v26hVmq22y-QhT5PPnE1PQfJ8gxxNJollpRIpN1wQ" type="text/javascript"></script> -->
+                <script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAFW8NgZfoxFc3Ht4HxIygBRTCv78iwvdsoKGinnS7fKaSmV9tzhT0xVaw1b-i4zI5DRJgo--17f5TBw" type="text/javascript"></script>
 		<script src="../js/gmaps.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			var map = document.getElementById("map");
