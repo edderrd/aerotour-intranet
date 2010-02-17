@@ -10,71 +10,69 @@
     <script src="http://jqueryui.com/ui/ui.datepicker.js" type="text/javascript"></script><!-- don't remove -->
     <script src="../js/css_selector.js" type="text/javascript"></script><!-- don't remove -->
 
-     <script> 
-     	$(document).ready(function(){
-			//Attach datepicker
-			$("#datepicker").datepicker();
+    <script> 
+    $(document).ready(function(){
+	  //Attach datepicker
+	  $("#datepicker").datepicker();
 			
-			$("#addFlight").submit(function(){
-			    var arr = $(this).serializeArray();
-			    var json = "";
-			    jQuery.each(arr, function(){
-			        jQuery.each(this, function(i, val){
-			                if (i=="name") {
-			                        json += '"' + val + '":';
-			                } else if (i=="value") {
-			                        json += '"' + val.replace(/"/g, '\\"') + '",';
-			                }
-			        });
-			    });
-			    json = "{" + json.substring(0, json.length - 1) + "}";
-			    // do something with json
-				  $.ajax({
-				    type: "POST",
-				    url: "../php/addFlight.php",
-				    //data: dataString,
-				    data: {json: json},
-				    success: function(returnValue) {
-				      $('#btnSubmit').append(returnValue);
-				    }
-				  });
-			    
-			    //write out for refference into div
-			    $("#curData").append(json + "<br/>");
-			    
-			    //clear all fields
-			    $("#addFlight").find(':input').each(function() {
-        			switch(this.type) {
-            		case 'text':
-            		case 'textarea':
-               		 $(this).val('');
-                		break;
-            		case 'radio':
-                		this.checked = false;
-        			}
-    			});
-			    return false;
-			});
-			
-			//success: function() {
-			//  $('#btnSubmit').append("<div id='message' class='ui-state-highlight' style='padding:10px;text-align:center;'>Flight Added!></div>");
-			//}
+	  $("#addFlight").submit(function(){
+	  var formData = $(this).serializeArray();
 
+	  // do something with json
+	  $.ajax({
+	    type: "POST",
+	    url: "../php/addFlight.php",
+	    //data: dataString,
+	    data: formData,
+	    success: function(returnValue) {
+	      $('#btnSubmit').append(returnValue);
+	    }
+	  });
+
+
+	  //clear all fields
+	  $("#addFlight").find(':input').each(function() {
+	    switch(this.type) {
+	      case 'text':
+	      case 'textarea':
+	      $(this).val('');
+	      break;
+	      case 'radio':
+	      this.checked = false;
+	    }
+	  });
+	    return false;
+	  });
 			
-		});
-     </script>
-  <style>
+    });
+
+
+    //do action on select change
+    function dropdown(sel){ 
+      if(sel.options.selectedIndex == 0){ 
+	  alert('Please choose an option'); 
+	  return false; 
+      } 
+      else{ 
+	  c = confirm('You chose ' + sel.options[sel.selectedIndex].value + '\nDo you want to continue?'); 
+	  if(c){ sel.form.submit(); } else{ sel.selectedIndex = 0; } 
+      } 
+    };
+
+
+    </script>
+    <style>
     div label {
       width: 100px !important;
       display: inline-block !important;
     }
-  </style>
+    </style>
   </head>  
   <body>  
-    <h1><div class="leftButton" onclick="history.back();return false">Back</div>AEROTOUR INTRANET</h1>  
+    <h1><div class="leftButton" onclick="location.href='index.php'">Back</div>AEROTOUR INTRANET</h1>  
     <h2>Add a flight to White Board</h2>  
     <ul>
-      <li>
+      <li class="single">
 	<form action="" method="post" name="addFlight" id="addFlight">
 	  <fieldset>
 	    <div>
@@ -85,7 +83,7 @@
 		<option value="CANCELED">CANCELED</option>
 	      </select>
 	    </div>
-	    <div><label for="date">Date:</label> <input type="text" class="iinputui" name="date" id="datepicker"></div>
+	    <div><label for="fdate">Date:</label> <input type="text" class="iinputui" name="fdate" id="datepicker"></div>
 	    <div><label for="route">Route:</label> <input type="text" class="iinputui" id="route" name="route"/></div>
 	    <div><label for="pax">Pax:</label> <input type="text" class="iinputui" id="pax" name="pax" /></div>
 	    <div>
@@ -112,7 +110,7 @@
 	      </select>
 	    </div>
 	    <div><label for="client">Client:</label> <input type="text" class="iinputui" name="client" id="client" /></div>
-	    <div><label for="leave">Leaves:</label> <input  type="text" class="iinputui" name="leave" id="leave" /></div>
+	    <div><label for="leaves">Leaves:</label> <input  type="text" class="iinputui" name="leaves" id="leave" /></div>
 	    <div><label for="returns">Return:</label> <input type="text" class="iinputui" name="returns" id="returns" /></div>
 	    <div><label for="fuel">Fuel:</label> <input type="text" class="iinputui" name="fuel" id="fuel" /></div>
 	    <div><label for="notes">Notes:</label> <textarea id="notes" name="notes" rows="5" cols="50"></textarea></div>
@@ -120,9 +118,96 @@
 	  </fieldset>
 	</form>
       </li>
-      <li>
-		<h2>Added Flights</h2>
-		<div id="curData"></div>
+     </ul>
+     
+     <h2>Manage Flights</h2>
+     
+     <ul>
+      <li class="single">
+		<div id="curData">
+		
+			<table cellpadding="0" cellspacing="1" border="0" id="tblFlights" width="100%"> 
+				<thead> 
+					<tr> 
+						<th>X</th>
+						<th>Status</th> 
+						<th>Date</th> 
+						<th>Route</th> 
+						<th>Pax</th> 
+						<th>Tail</th>
+						<th>Pilot</th>
+						<th>Client</th>
+						<th>Leave</th>
+						<th>Return</th>
+						<th>Fuel</th>
+						<th>Notes</th>
+					</tr> 
+				</thead> 
+				<tbody> 
+					<?php
+									
+						$dbname='../data/flights.sqlite';
+						$mytable ="schedule";
+						
+						$base=new SQLiteDatabase($dbname, 0666, $err);
+						if ($err)  exit($err);		
+										
+						//read data from database
+						$query = "SELECT id, status, date, route, pax, tail, pilot, client, leaves, returns, fuel, notes FROM $mytable ORDER BY date";
+						$results = $base->arrayQuery($query, SQLITE_ASSOC);
+						$size = count($results);
+						
+						for($i = 0; i < $size; $i++)
+						{
+						  $arr = $results[$i];
+						  if(count($arr) == 0) break;
+  							
+  							$id = $arr['id'];
+							$status = $arr['status'];
+							$date = $arr['date']; 
+							$route = $arr['route'];
+							$pax = $arr['pax'];
+							$tail = $arr['tail'];
+							$pilot = $arr['pilot'];
+							$client = $arr['client']; 
+							$leaves = $arr['leaves'];
+							$returns = $arr['returns'];
+							$fuel = $arr['fuel'];
+							$notes = $arr['notes'];
+
+						echo "<form name='statusForm' action='status.php' id='formStatus'>";
+						echo "<input type='hidden' name='id' value='$id' />";
+						echo "<tr>";
+						echo "<td style='text-align:center'><a href='delete.php?id=$id&'>delete</a></td>";   
+						echo "<td><select name='status' onchange='return dropdown(this)'>
+							<option value=''>Change Status</option>
+							<option value='ACTIVE'>ACTIVE</option>
+							<option value='STANDBY'>STANDBY</option>
+							<option value='CANCELED'>CANCELED</option>
+							</select> | $status</td>";
+						echo "<td> $date </td>";
+						echo "<td> $route </td>";
+						echo "<td> $pax </td>";
+						echo "<td> $tail </td>";
+						echo "<td> $pilot </td>";
+						echo "<td> $client </td>";
+						echo "<td> $leaves </td>";
+						echo "<td> $returns </td>";
+						echo "<td> $fuel </td>";
+						echo "<td> $notes </td>";
+						echo "</tr>";
+						echo "</form>";
+						}
+						
+						//echo "$size records in database\n";
+											
+						
+						
+					?>
+				</tbody> 
+			</table>
+		</div>
+		<p class="disclamer"><a href="clear.php">Delete all flights before today.</a></p>
       </li>
     </ul>  
   </body>  
