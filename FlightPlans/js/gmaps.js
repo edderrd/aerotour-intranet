@@ -95,9 +95,12 @@ function parseJson (gmap, data) {
 	var cordinates = new Array();
 	
 	for (i = 0; i < jsonData.route.length; i++) {
-		var marker = createMarker(jsonData.route[i]);
-		cordinates[i] = jsonData.route[i].cordinates;
-		gmap.addOverlay(marker);
+                jsonData.route[i].cordinates = eval(jsonData.route[i].cordinates);
+                
+                var marker = createMarker(jsonData.route[i]);
+
+                cordinates[i] = jsonData.route[i].cordinates;
+                gmap.addOverlay(marker);
 	}
 	
 	createTrack(cordinates, gmap);
@@ -112,10 +115,8 @@ function parseJson (gmap, data) {
  * @return Gmap gmap
  */
 function createTrack(cordinates, gmap) {
+    var trackLine = new GPolyline(cordinates, "#E90E96", 5, 0.7);
+    gmap.addOverlay(trackLine);
 
-	var trackLine = new GPolyline(cordinates, "#E90E96", 5, 0.7);
-	gmap.addOverlay(trackLine);
-	
-	return gmap;
+    return gmap;
 }
-
