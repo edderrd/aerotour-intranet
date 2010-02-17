@@ -74,5 +74,28 @@ class PlanParser
         return $rv;
     }
     
+    /**
+     * Summarize all time in routes and return it
+     * as a total
+     *
+     * @return long
+     */
+    public function getTotalTime()
+    {
+        $tt = "00:00:00";
+        return $tt;
+    }
+
+    /**
+     * Summarize average speed in routes and return it
+     * as a total
+     *
+     * @return long
+     */
+    public function getAverageSpeed()
+    {
+        $as = "83";
+        return $as;
+    }
 
 }

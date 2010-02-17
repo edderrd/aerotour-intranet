@@ -11,6 +11,8 @@
 		  "altitude":"3600",
 		  "markerImage":"../images/maps/aa-start.png",
 		  "frequency": "118.3",
+		  "tower": "118.3",
+		  "twrground": "121.7",
 		  "runway": "09/27",
 		  "length": "1600",
 		  "ground": "asphalt"
@@ -68,6 +70,8 @@
                   "cordinates":"new GLatLng(10.593598,-85.543210)",
 		  "markerImage":"../images/maps/aa-end.png",
 		  "frequency": "118.6",
+		  "approach": "125.6",
+		  "tower": "118.6",
 		  "runway": "07/25",
 		  "length": "2750",
 		  "ground": "asphalt"

@@ -57,7 +57,16 @@ function formatTabTwo (input) {
 		html 	+= "Length: <b>" + input.length + "m.</b><br />";
 	}
 	if(input.ground != null) {
-		html 	+= "Type: <b>" + input.ground + "</b>";
+		html 	+= "Type: <b>" + input.ground + "</b><br />";
+	}
+	if(input.approach != null) {
+		html 	+= "Approach: <b>" + input.approach + "</b><br />";
+	}
+	if(input.tower != null) {
+		html 	+= "Tower: <b>" + input.tower + "</b><br />";
+	}
+	if(input.twrground != null) {
+		html 	+= "Ground: <b>" + input.twrground + "</b>";
 	}
 	html 		+= "</p></div>";					
 	return html;			

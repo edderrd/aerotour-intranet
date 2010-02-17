@@ -11,6 +11,8 @@
 		  "altitude":"3600",
 		  "markerImage":"../images/maps/aa-start.png",
 		  "frequency": "118.3",
+		  "tower": "118.3",
+		  "twrground": "121.7",
 		  "runway": "09/27",
 		  "length": "1600",
 		  "ground": "asphalt"

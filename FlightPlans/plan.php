@@ -8,50 +8,35 @@
     <link href="css/print.css" rel="stylesheet" media="print"/>  
     <script src="js/jquery-1.4.1.min.js" type="text/javascript"></script><!-- don't remove -->
     <script src="js/jquery-ui.js" type="text/javascript"></script><!-- don't remove -->
-    <!--<script src="js/iPhone.js" type="text/javascript"></script> don't remove -->
     <script src="js/ui.iTabs.js" type="text/javascript"></script><!-- don't remove -->
     <script src="js/jquery.getParams.js" type="text/javascript"></script><!-- don't remove -->
     <script src="js/css_selector.js" type="text/javascript"></script><!-- don't remove -->
     
-    <script src="js/formHighlighter.js" type="text/javascript"></script>
-
 	<script type="text/javascript">/* <![CDATA[ */
-		$(function(){
-			
-			//Parameter for type
-			type = $.getUrlVar("type");
-			//Parameter for zone
-			zone = $.getUrlVar("zone");
-			//Parameter for point
-			point = $.getUrlVar("point");
-			$("#crumbs").html(type + "<span class='chevron'/>" + zone + "<span class='chevron'/>" + point);
+	  $(function(){
+		  
+	      //Parameter for type
+	      type = $.getUrlVar("type");
+	      //Parameter for zone
+	      zone = $.getUrlVar("zone");
+	      //Parameter for point
+	      point = $.getUrlVar("point");
+	      $("#crumbs").html(type + "<span class='chevron'/>" + zone + "<span class='chevron'/>" + point);
 
-			//Get TAF
-			$("#metar").load("php/proxy.php?url=http://aviationweather.gov/adds/tafs/index.php?station_ids=MRPV+" + point);
-			//$.ajax({
-			//	type: "POST",
-			//	url: "php/proxy.php?url=http://aviationweather.gov/adds/tafs/index.php?station_ids=MRPV+" + point,
-			//	success: function(data) {
-			//		$('#metar').html(data);
-			//	}
-			//});
-			
-			//Insert value into flight plan
-			$("#topPlan").val('MRPV - ' + point);
-			
-			//Insert value into Header
-			$("#headPoint").text('MRPV - ' + point);
-			$("#headType").text(type);
-			
-			//ToggleButton
-			$(".btnToggle").click(function(){
-				$(".hideMe").toggle();
-			});
+	      //Get TAF
+	      $("#metar").load("php/proxy.php?url=http://aviationweather.gov/adds/tafs/index.php?station_ids=MRPV+" + point);
+	      
+	      //Insert value into flight plan
+	      $("#topPlan").val('MRPV - ' + point);
+	      
+	      //Insert value into Header
+	      $("#headPoint").text('MRPV - ' + point);
+	      $("#headType").text(type);
 
-                        //Make Tabs
-                        $(".tabbar").iTabs();
-			
-		});
+	      //Make Tabs
+	      $(".tabbar").iTabs();
+		  
+	  });
 	/* ]]> */
 	</script>
 
@@ -137,7 +122,7 @@
 		        E<br /> 
 		        G </td> 
 		      <td class="coloured" colspan="3">True Air Speed
-		        <input name="tas" class="inputs" type="integer" id="tas" onchange="itemChange(this.form,'tas','0','0','250')" size="5" value='100' /> 
+		        <input name="tas" class="inputs" type="integer" id="tas" onchange="itemChange(this.form,'tas','0','0','250')" size="3" value='100' /> 
 		        Kts</td> 
 		      <td class="coloured" colspan="9">Global Magnetic Variation
 		        <input name="variation" class="inputs" id="variation" onchange="magVarChange(this.form,'variation')" value='0' size="3"  /> 
@@ -163,15 +148,15 @@
 		      <th width="42"  rowspan="2">Time<br /> 
 		        mins </th> 
 		      <th width="112" >&nbsp;ETA</th> 
-		      <th width="42" >&nbsp;FIS</th> 
-		      <th width="44" >&nbsp;VOR</th> 
+		      <th width="42" >&nbsp;FIS</th>
+		      <th width="44" >&nbsp;VOR</th>
 		    </tr> 
 		    <tr> 
 		      <th><nobr>Plan Alt</nobr></th> 
 		      <th><nobr>Mag Hdg</nobr></th> 
 		      <th>Actual</th> 
-		      <th>Freq.</th> 
-		      <th>Squawk</th> 
+		      <th>Freq.</th>
+		      <th>Squawk</th>
 		    </tr>
                     <?php
                         require_once dirname(__FILE__) . "/PlanParser.php";
@@ -199,7 +184,7 @@
                   <td <?= $rowClass ?> align="center" valign="top"><input  name="time1" type="text" class="highlight" id="time1" size="3" readonly="readonly" /></td>
                   <td <?= $rowClass ?> >&nbsp;</td>
                   <td <?= $rowClass ?> align="center"><?= $row['frequency'] ?></td>
-                  <td <?= $rowClass ?> align="center"><input name="vor" class="inputs" type="text" id="vor" size="7" /></td>
+		  <td <?= $rowClass ?> align="center"><input name="vor" class="inputs" type="text" id="vor" size="7" /></td>
                   <td <?= $alterRowClass ?> rowspan="2" align="center"><?= $rowNumber ?></td>
                 </tr>
                 <tr>
@@ -210,14 +195,14 @@
                   <td <?= $rowClass ?> colspan="3" align="left" valign="top"><input name="textfield59" class="inputs" type="text" size="21" /></td>
                   <td <?= $rowClass ?> >&nbsp;</td>
                   <td <?= $rowClass ?> align="center"><input name="freq" class="inputs" type="text" id="freq" size="7" /></td>
-                  <td <?= $rowClass ?> align="center">&nbsp;</td>
+		  <td <?= $rowClass ?> align="center">&nbsp;</td>
                 </tr>
              <?php endforeach; ?>
                 <tr>
                   <th colspan="7" align="right">Totals&nbsp;</th>
-                  <td align="center"><input name="averageSpeed" class="highlightGreen" type="text" id="averageSpeed" size="3" readonly="readonly" /></td>
+                  <td align="center"><input name="averageSpeed" class="highlightGreen" type="text" id="averageSpeed" size="3" readonly="readonly" value="<?= $parser->getAverageSpeed() ?>" /></td>
                   <td align="center"><input name="totalDistance" class="highlightGreen" type="text" id="totalDistance" size="4" readonly="readonly" value="<?= $parser->getTotalDistance() ?>" /></td>
-                  <td align="center"><input name="totalTime" class="highlightGreen"  type="text" id="totalTime" size="4" readonly="readonly" /></td>
+                  <td align="center"><input name="totalTime" class="highlightGreen"  type="text" id="totalTime" size="4" readonly="readonly" value="<?= $parser->getTotalTime() ?>" /></td>
                   <th colspan="4">&nbsp;</th>
                 </tr>
               </table>
@@ -281,16 +266,23 @@
       <li><div id="metar" class="disclamer">metar will load here</div></li>
       <li>
 	    <ul class="tabbar itabsui">
+	        <li><a class="iicon" href="#tower" title="MRPV Tower"><em class="ii-weather"></em>MRPV Tower</a></li>
+		<li><a class="iicon" href="#weather" title="Weather Satelite"><em class="ii-cloud"></em>Weather Satelite</a></li>
 	        <li><a class="iicon" href="#infrared" title="Infrared Satelite"><em class="ii-weather"></em>Infrared Satelite</a></li>
-	        <li><a class="iicon" href="#weather" title="Weather Satelite"><em class="ii-cloud"></em>Weather Satelite</a></li>
 	        <li><a class="iicon" href="#noaa" title="Noaa Satelite"><em class="ii-brightness"></em>NOAA Satelite</a></li>
 	        <li><a class="iicon" href="#isacar" title="Isacar Satelite"><em class="ii-umbrella"></em>Isacar Satelite</a></li>
 	    </ul>
-	    <div id="infrared" title="Infrared Satelite">
-	        <img src="http://aviationweather.gov/data/obs/sat/intl/ir_ICAO-A_bw.jpg" width="100%"/>
+	    <div id="tower" title="MRPV Tower">
+	        <p style="text-align:center;">
+		  <img src="http://www.imn.ac.cr/especial/QNHPAVAS.png" width="360px"/>
+		  <img src="http://www.imn.ac.cr/especial/PavasRed.png" width="600px"/>
+		</p>
 	    </div>
 	    <div id="weather" title="Weather Satelite">
-	        <img src="http://image.weather.com/images/sat/cenamersat_600x405.jpg" width="100%"/>
+	        <img src="http://www.imn.ac.cr/especial/SATVIS.GIF" width="100%"/>
+	    </div>
+	    <div id="infrared" title="Infrared Satelite">
+	        <img src="http://www.imn.ac.cr/especial/SATELITE.GIF" width="100%"/>
 	    </div>
 	    <div id="noaa" title="NOAA Satelite">
 	        <img src="http://cimss.ssec.wisc.edu/goes/burn/data/rtloopregional/centamer/latest_centamer.gif" width="100%"/>
