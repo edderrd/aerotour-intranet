@@ -8,7 +8,7 @@
     <script src="js/css_selector.js" type="text/javascript"></script><!-- don't remove -->
   </head>  
   <body>  
-    <h1><div class="leftButton" onclick="history.back();return false">Back</div>AEROTOUR INTRANET</h1>  
+    <h1><div class="leftButton" onclick="location.href='index.php'">Back</div>AEROTOUR INTRANET</h1>  
     <h2>Select Aircraft type</h2>  
     <ul class="menu">  
       <li><a href="zone.php?type=Helicopter" class="arrow icon iicon"><em class="ii-airplane"></em> Helicopter</a></li>

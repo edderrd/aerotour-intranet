@@ -5,6 +5,7 @@ class PlanParser
 
     protected $_endPoint = null;
     protected $_data = array();
+    protected $_routes = array();
 
     public function __construct($endPoint)
     {
@@ -53,7 +54,10 @@ class PlanParser
      */
     public function getRoute()
     {
-        return $this->_data['route'];
+        if ( empty($this->_routes)) {
+            $this->_routes = $this->_data['route'];
+        }
+        return $this->_routes;
     }
 
 
@@ -96,6 +100,25 @@ class PlanParser
     {
         $as = "83";
         return $as;
+    }
+    
+    /**
+     * Only return routes with airports
+     *
+     * @return array
+     */
+    public function getAirports()
+    {
+        $routes = $this->getRoute();
+        $rv = array();
+        
+        foreach($routes as $row) {
+            if ($row['airport'] == 'yes') {
+                $rv[] = $row;
+            }
+        }
+        
+        return $rv;
     }
 
 }

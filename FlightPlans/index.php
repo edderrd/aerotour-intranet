@@ -17,7 +17,17 @@
       <!--<li><a href="wb.php" class="arrow icon iicon"><em class="ii-gear"></em> Weight & Balance</a></li>-->
       <li><a href="tools.php" class="arrow icon iicon"><em class="ii-toolbox"></em> Tools</a></li>
     </ul>
-    
+
+<!-- GOOGLE ANALitic TRACKER -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1765244-15");
+pageTracker._trackPageview();
+} catch(err) {}</script>
     
   <!--//
                                       ,=_,_

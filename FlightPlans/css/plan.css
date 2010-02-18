@@ -63,12 +63,14 @@ input.inputs {
 	background: White;
 	border: 1px solid #FFFFFF;
 	color: Black;
+	text-align: center;
 }
 
 input.inputsAlt {
 	background: #edf2fb;
 	border: 0px none #edf2fb;
 	color: Black;
+	text-align: center;
 }
 
 input.inputsAltCentered {

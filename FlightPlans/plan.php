@@ -52,7 +52,7 @@
 
   </head>  
   <body>  
-    <h1 class="noPrint"><div class="leftButton" onclick="history.back();return false">Back</div>Flight <span id="headPoint">Route</span> in a <span id="headType">Aircraft</span><div class="rightButton" onclick="window.print();return false">Print</div></h1>
+    <h1 class="noPrint"><div class="leftButton" onclick="location.href='points.php'">Back</div>Flight <span id="headPoint">Route</span> in a <span id="headType">Aircraft</span><div class="rightButton" onclick="window.print();return false">Print</div></h1>
     <h2>Flight Plan <span class='chevron'></span> <span id="crumbs"></span></h2>  
     <ul>  
       <li class="single">
@@ -78,6 +78,15 @@
 		      <td>&nbsp;</td> 
 		    </tr> 
 		  </table> 
+		  
+			<?php
+			   require_once dirname(__FILE__) . "/PlanParser.php";
+			
+			   $endPoint = $_GET['point'];
+			   $parser = new PlanParser($endPoint);
+			   $route = $parser->getRoute();
+			?>
+				
 		  <table class="tableOne" width="100%"  border="1" cellpadding="0" cellspacing="1" > 
 		    <tr> 
 		      <th width="30%">Field</th> 
@@ -88,37 +97,21 @@
 		      <th width="10%">Tower</th> 
 		      <th width="10%">Ground</th> 
 		    </tr> 
+			<?php foreach( $parser->getAirports() as $number => $row): ?>
 		    <tr> 
-		      <td><input name="textfield" class="inputs" type="text" size="30%"/></td> 
-		      <td align="center"><input name="textfield" class="inputs" type="text" size="20%"/></td> 
-		      <td align="center"><input name="FIS9b" class="inputs" type="text" id="FIS92b" size="10%" /></td> 
-		      <td align="center"><input name="FIS9a" class="inputs" type="text" id="FIS92a" size="10%" /></td> 
-		      <td align="center"><input name="FIS9" class="inputs" type="text" id="FIS92" size="10%" /></td> 
-		      <td align="center"><input name="FIS12" class="inputs" type="text" id="FIS12" size="10%" /></td> 
-		      <td align="center"><input name="FIS15" class="inputs" type="text" id="FIS15" size="10%" /></td> 
+		      <td>&nbsp;<?= $row['point'] ?></td> 
+		      <td align="center" height="20px"><?= $row['runway'] ?>, <?= $row['length'] ?>m, <?= $row['ground'] ?></td> 
+		      <td align="center" height="20px"><?= $row['unicom'] ?></td> 
+		      <td align="center" height="20px"><?= $row['radio'] ?></td> 
+		      <td align="center" height="20px"><?= $row['approach'] ?></td> 
+		      <td align="center" height="20px"><?= $row['tower'] ?></td> 
+		      <td align="center" height="20px"><?= $row['twrground'] ?></td> 
 		    </tr> 
-		    <tr> 
-		      <td><input name="textfield2" class="inputs" type="text" size="30%"/></td> 
-		      <td align="center"><input name="textfield" class="inputs" type="text" size="20%"/></td> 
-		      <td align="center"><input name="FIS10b" class="inputs" type="text" id="FIS10b" size="10%" /></td> 
-		      <td align="center"><input name="FIS10a" class="inputs" type="text" id="FIS10a" size="10%" /></td> 
-		      <td align="center"><input name="FIS10" class="inputs" type="text" id="FIS10" size="10%" /></td> 
-		      <td align="center"><input name="FIS13"  class="inputs" type="text" id="FIS13" size="10%" /></td> 
-		      <td align="center"><input name="FIS16" class="inputs" type="text" id="FIS16" size="10%" /></td> 
-		    </tr> 
-		    <tr> 
-		      <td><input name="textfield3" class="inputs" type="text" size="30%"/></td> 
-		      <td align="center"><input name="textfield" class="inputs" type="text" size="20%"/></td> 
-		      <td align="center"><input name="FIS11b" class="inputs"  type="text" id="FIS112b" size="10%" /></td> 
-		      <td align="center"><input name="FIS11a" class="inputs"  type="text" id="FIS112a" size="10%" /></td>
-		      <td align="center"><input name="FIS11" class="inputs"  type="text" id="FIS112" size="10%" /></td> 
-		      <td align="center"><input name="FIS14" class="inputs" type="text" id="FIS142" size="10%" /></td> 
-		      <td align="center"><input name="FIS17" class="inputs" type="text" id="FIS172" size="10%" /></td> 
-		    </tr> 
+			<?php endforeach; ?>
 		  </table> 
 		  <table class="tableOne" width="100%"  border="1" cellpadding="0" cellspacing="1"> 
 		    <tr> 
-		      <td class="coloured" width="13" rowspan="3">L<br /> 
+		      <td class="coloured" width="13" rowspan="3" align="center">L<br /> 
 		        E<br /> 
 		        G </td> 
 		      <td class="coloured" colspan="3">True Air Speed
@@ -127,12 +120,12 @@
 		      <td class="coloured" colspan="9">Global Magnetic Variation
 		        <input name="variation" class="inputs" id="variation" onchange="magVarChange(this.form,'variation')" value='0' size="3"  /> 
 		&plusmn; deg</td> 
-		      <td  class="coloured" width="13" rowspan="3"> L<br /> 
+		      <td  class="coloured" width="13" rowspan="3" align="center"> L<br /> 
 		        E<br /> 
 		        G </td> 
 		    </tr> 
 		    <tr> 
-		      <th width="74"  rowspan="2">From/to</th> 
+		      <th width="74" rowspan="2" align="center">From / To</th> 
 		      <th width="40" height="20" ><nobr>Safe Alt</nobr></th> 
 		      <th width="42"  rowspan="2">True<br /> 
 		        Track </th> 
@@ -158,45 +151,39 @@
 		      <th>Freq.</th>
 		      <th>Squawk</th>
 		    </tr>
-                    <?php
-                        require_once dirname(__FILE__) . "/PlanParser.php";
 
-                        $endPoint = $_GET['point'];
-                        $parser = new PlanParser($endPoint);
-                        $route = $parser->getRoute();
-                    ?>
-	      <?php foreach( $route as $number => $row): ?>
-                <?php $rowNumber = $number + 1; ?>
-                <?php
-                    $rowClass = ($number %  2) == 0 ? 'class="coloured"' : "";
-                    $alterRowClass = ($number %  2) == 0 ? "" : 'class="coloured"';
-                ?>
-  	        <tr>
-                  <td <?= $alterRowClass ?> rowspan="2"><?= $rowNumber ?></td>
-                  <td <?= $rowClass ?> ><?= $row['point'] ?></td>
-                  <td <?= $rowClass ?> align="center"><?= $row['altitude'] ?></td>
-                  <td <?= $rowClass ?> align="center"><?= $row['course'] ?></td>
-                  <td <?= $rowClass ?> ><input onchange="itemChange(this.form,'windVel','1','0','360')" name="windVel1" class="inputs" type="text" id="windVel1" size="6" value="000/00" /></td>
-                  <td <?= $rowClass ?> align="center"><input onchange="itemChange(this.form,'magVar','1','0','360')" name="magVar1" type="text" class="inputs" id="magVar1" size="4" maxlength="4" value='0'  /></td>
-                  <td <?= $rowClass ?> align="center"><input class="inputs" name="drift1"  type="text" id="drift1" size="5" readonly="readonly"  /></td>
-                  <td <?= $rowClass ?> align="center" valign="top"><input class="inputs" name="groundSpeed1"  type="text" id="groundSpeed1" size="3" readonly="readonly" /></td>
-                  <td <?= $rowClass ?> align="center"><?= $row['distance'] ?></td>
-                  <td <?= $rowClass ?> align="center" valign="top"><input  name="time1" type="text" class="highlight" id="time1" size="3" readonly="readonly" /></td>
-                  <td <?= $rowClass ?> >&nbsp;</td>
-                  <td <?= $rowClass ?> align="center"><?= $row['frequency'] ?></td>
-		  <td <?= $rowClass ?> align="center"><input name="vor" class="inputs" type="text" id="vor" size="7" /></td>
-                  <td <?= $alterRowClass ?> rowspan="2" align="center"><?= $rowNumber ?></td>
-                </tr>
-                <tr>
-                  <td <?= $rowClass ?> ><?= $route[$rowNumber]['point'] ?></td>
-                  <td <?= $rowClass ?> align="center"></td>
-                  <td <?= $rowClass ?> colspan="3" align="left"><input name="textfield5" class="inputs" type="text" size="22" /></td>
-                  <td <?= $rowClass ?> align="center" ><input class="highlight" name="heading1"  type="text" id="heading1" size="4" readonly="readonly" /></td>
-                  <td <?= $rowClass ?> colspan="3" align="left" valign="top"><input name="textfield59" class="inputs" type="text" size="21" /></td>
-                  <td <?= $rowClass ?> >&nbsp;</td>
-                  <td <?= $rowClass ?> align="center"><input name="freq" class="inputs" type="text" id="freq" size="7" /></td>
-		  <td <?= $rowClass ?> align="center">&nbsp;</td>
-                </tr>
+				<?php foreach( $route as $number => $row): ?>
+				<?php $rowNumber = $number + 1; ?>
+				<?php
+					$rowClass = ($number %  2) == 0 ? 'class="coloured"' : "";
+					$alterRowClass = ($number %  2) == 0 ? "" : 'class="coloured"';
+				?>
+				<tr>
+					<td <?= $alterRowClass ?> rowspan="2" align="center"><?= $rowNumber ?></td>
+					<td <?= $rowClass ?> align="center"><strong><?= $row['point'] ?></strong></td>
+					<td <?= $rowClass ?> align="center"><strong class="red"><?= $row['altitude'] ?></strong></td>
+					<td <?= $rowClass ?> align="center"><?= $row['course'] ?></td>
+					<td <?= $rowClass ?> align="center"><input onchange="itemChange(this.form,'windVel','1','0','360')" name="windVel1" class="inputs" type="text" id="windVel1" size="6" value="000/00" /></td>
+					<td <?= $rowClass ?> align="center"><input onchange="itemChange(this.form,'magVar','1','0','360')" name="magVar1" type="text" class="inputs" id="magVar1" size="4" maxlength="4" value='0'  /></td>
+					<td <?= $rowClass ?> align="center"><input class="inputs" name="drift1"  type="text" id="drift1" size="5" readonly="readonly"  /></td>
+					<td <?= $rowClass ?> align="center" valign="top"><input class="inputs" name="groundSpeed1"  type="text" id="groundSpeed1" size="3" readonly="readonly" /></td>
+					<td <?= $rowClass ?> align="center"><?= $row['distance'] ?></td>
+					<td <?= $rowClass ?> align="center" valign="top"><input  name="time1" type="text" class="highlight" id="time1" size="3" readonly="readonly" /></td>
+					<td <?= $rowClass ?> >&nbsp;</td>
+					<td <?= $rowClass ?> align="center"><?= $row['frequency'] ?></td>
+					<td <?= $rowClass ?> align="center">&nbsp;</td>
+					<td <?= $alterRowClass ?> rowspan="2" align="center"><?= $rowNumber ?></td>
+				</tr>
+				<tr>
+					<td <?= $rowClass ?> align="center"><?= $route[$rowNumber]['point'] ?></td>
+					<td <?= $rowClass ?> align="center"></td>
+					<td <?= $rowClass ?> colspan="3" align="left">&nbsp;</td>
+					<td <?= $rowClass ?> align="center" ><input class="highlight" name="heading1"  type="text" id="heading1" size="4" readonly="readonly" /></td>
+					<td <?= $rowClass ?> colspan="3" align="left" valign="top">&nbsp;</td>
+					<td <?= $rowClass ?> >&nbsp;</td>
+					<td <?= $rowClass ?> align="center"><input name="freq" class="inputs" type="text" id="freq" size="7" /></td>
+					<td <?= $rowClass ?> align="center">&nbsp;</td>
+				</tr>
              <?php endforeach; ?>
                 <tr>
                   <th colspan="7" align="right">Totals&nbsp;</th>
@@ -206,11 +193,11 @@
                   <th colspan="4">&nbsp;</th>
                 </tr>
               </table>
-
-              <table width="100%" border="0" >
+              
+              <table width="100%" border="0">
                 <tr>
-                  <td  class="hidden" align="left" valign="top"><textarea name="textarea" cols="70" rows="11" >Notes.</textarea></td>
-                  <td width="124"  align="right" valign="top" class="hidden">
+                  <td align="left" valign="top"><textarea name="textarea" cols="70" rows="11" >Notes.</textarea></td>
+                  <td width="124"  align="right" valign="top">
                   <table border="0" align="right" cellpadding="0" cellspacing="0" >
                     <tr>
                       <td class="coloured" colspan="2"><div align="left">Fuel Burn
@@ -240,6 +227,7 @@
                   </table>
                   </td>
               </table>
+              
             </form>
       </li>   
     </ul>
@@ -249,13 +237,13 @@
     <h2>Map</h2>  
     <ul>  
       <li class="single">
-	<script type="text/javascript">
-	<!--
-	document.write('<iframe src="maps/gmaps.php?point=<?= $_GET['point'] ?>" width="100%" height="800px" scrolling="no" frameborder="0"></iframe>');
-	document.write('<div><span class="disclamer"><img src="images/maps/aa-start.png"/>Route Start.</span><span class="disclamer"><img src="images/maps/aa-end.png"/>Route End.</span><span class="disclamer"><img src="images/maps/aa-marker.png"/>Checkpoint.</span><span class="disclamer"><img src="images/maps/aa-check.png"/>Airport.</span></div>');
-	document.write('<div><span class="disclamer">This map is for route confirmation only and should not be used in flight.</span></div>');
-	-->
-	</script>
+		<script type="text/javascript">
+		<!--
+		document.write('<iframe src="maps/gmaps.php?point=<?= $_GET['point'] ?>" width="100%" height="800px" scrolling="no" frameborder="0"></iframe>');
+		document.write('<div><span class="disclamer"><img src="images/maps/aa-start.png"/>Route Start.</span><span class="disclamer"><img src="images/maps/aa-end.png"/>Route End.</span><span class="disclamer"><img src="images/maps/aa-marker.png"/>Checkpoint.</span><span class="disclamer"><img src="images/maps/aa-check.png"/>Airport.</span></div>');
+		document.write('<div><span class="disclamer">This map is for route confirmation only and should not be used in flight.</span></div>');
+		-->
+		</script>
       </li>  
     </ul>
     
@@ -266,17 +254,17 @@
       <li><div id="metar" class="disclamer">metar will load here</div></li>
       <li>
 	    <ul class="tabbar itabsui">
-	        <li><a class="iicon" href="#tower" title="MRPV Tower"><em class="ii-weather"></em>MRPV Tower</a></li>
-		<li><a class="iicon" href="#weather" title="Weather Satelite"><em class="ii-cloud"></em>Weather Satelite</a></li>
-	        <li><a class="iicon" href="#infrared" title="Infrared Satelite"><em class="ii-weather"></em>Infrared Satelite</a></li>
-	        <li><a class="iicon" href="#noaa" title="Noaa Satelite"><em class="ii-brightness"></em>NOAA Satelite</a></li>
-	        <li><a class="iicon" href="#isacar" title="Isacar Satelite"><em class="ii-umbrella"></em>Isacar Satelite</a></li>
+			<li><a class="iicon" href="#tower" title="MRPV Tower"><em class="ii-weather"></em>MRPV Tower</a></li>
+			<li><a class="iicon" href="#weather" title="Weather Satelite"><em class="ii-cloud"></em>Weather Satelite</a></li>
+			<li><a class="iicon" href="#infrared" title="Infrared Satelite"><em class="ii-weather"></em>Infrared Satelite</a></li>
+			<li><a class="iicon" href="#noaa" title="Noaa Satelite"><em class="ii-brightness"></em>NOAA Satelite</a></li>
+			<li><a class="iicon" href="#isacar" title="Isacar Satelite"><em class="ii-umbrella"></em>Isacar Satelite</a></li>
 	    </ul>
 	    <div id="tower" title="MRPV Tower">
-	        <p style="text-align:center;">
-		  <img src="http://www.imn.ac.cr/especial/QNHPAVAS.png" width="360px"/>
-		  <img src="http://www.imn.ac.cr/especial/PavasRed.png" width="600px"/>
-		</p>
+			<p style="text-align:center;">
+				<img src="http://www.imn.ac.cr/especial/QNHPAVAS.png" width="360px"/>
+				<img src="http://www.imn.ac.cr/especial/PavasRed.png" width="600px"/>
+			</p>
 	    </div>
 	    <div id="weather" title="Weather Satelite">
 	        <img src="http://www.imn.ac.cr/especial/SATVIS.GIF" width="100%"/>

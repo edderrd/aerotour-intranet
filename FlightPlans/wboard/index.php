@@ -52,7 +52,7 @@
 	
   </head>  
   <body>  
-    <h1><div class="leftButton" onclick="history.back();return false">Back</div>AEROTOUR INTRANET<div class="rightButton" onclick="location.href='add.php'"> + </div></h1>  
+    <h1><div class="leftButton" onclick="location.href='../index.php'">Back</div>AEROTOUR INTRANET<div class="rightButton" onclick="location.href='add.php'"> + </div></h1>  
     <h2>Flights Board, today is <span class="dateHere"></span></h2>  
     <ul>
       <li class="single">
@@ -107,7 +107,7 @@
 		"<td> <span class='board red'>$tail</span> </td>".
 		"<td> <span class='board'>$pilot</span> </td>".
 		"<td> $client </td>".
-		"<td> <span class='board green'>$leaves</span> </td>".
+		"<td> <span class='board blue'>$leaves</span> </td>".
 		"<td> $returns </td>".
 		"<td> $fuel </td>".
 		"<td> $notes </td>".

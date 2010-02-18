@@ -19,7 +19,7 @@
     
   </head>  
   <body>  
-    <h1><div class="leftButton" onclick="history.back();return false">Back</div>AEROTOUR INTRANET</h1>  
+    <h1><div class="leftButton" onclick="location.href='type.php'">Back</div>AEROTOUR INTRANET</h1>  
     <h2>Select zone of operation <span class='chevron'></span> <span id="crumbs"></span></h2>  
     <ul class="menu">  
       <li><a href="points.php?type=<?= $_GET['type'] ?>&zone=Guanacaste" class="arrow icon iicon"><em class="ii-radar"></em> Guanacaste</a></li>

@@ -5,7 +5,8 @@
 		"route": [
 		{	
 		  "point":"MRPV",
-                  "cordinates":"new GLatLng(9.958029,-84.139670)",
+		  "airport":"yes",
+        "cordinates":"new GLatLng(9.958029,-84.139670)",
 		  "course":"291",
 		  "distance":"2.7",
 		  "altitude":"3600",
@@ -19,7 +20,7 @@
 		},
 		{	
 		  "point":"PEDRE",
-                  "cordinates":"new GLatLng(9.975018,-84.182672)",
+        "cordinates":"new GLatLng(9.975018,-84.182672)",
 		  "course":"256",
 		  "distance":"10.9",
 		  "altitude":"3500",
@@ -28,7 +29,7 @@
 		},
 		{	
 		  "point":"BALSA",
-                  "cordinates":"new GLatLng(9.931294,-84.361263)",
+        "cordinates":"new GLatLng(9.931294,-84.361263)",
 		  "course":"263",
 		  "distance":"9.4",
 		  "altitude":"2500",
@@ -37,7 +38,7 @@
 		},
 		{	
 		  "point":"OROTINA",
-                  "cordinates":"new GLatLng(9.911895,-84.519587)",
+        "cordinates":"new GLatLng(9.911895,-84.519587)",
 		  "course":"286",
 		  "distance":"15.5",
 		  "altitude":"1500",
@@ -46,7 +47,8 @@
 		},
 		{	
 		  "point":"MRCH",
-                  "cordinates":"new GLatLng(9.981752,-84.773482)",
+		  "airport":"yes",
+        "cordinates":"new GLatLng(9.981752,-84.773482)",
 		  "course":"299",
 		  "distance":"32",
 		  "altitude":"1500",
@@ -58,7 +60,7 @@
 		},
 		{	
 		  "point":"RIO TEMPISKE",
-                  "cordinates":"new GLatLng(10.246187,-85.244108)",
+        "cordinates":"new GLatLng(10.246187,-85.244108)",
 		  "course":"320",
 		  "distance":"27",
 		  "altitude":"1500",
@@ -67,7 +69,8 @@
 		},
 		{	
 		  "point":"MRLB",
-                  "cordinates":"new GLatLng(10.593598,-85.543210)",
+		  "airport":"yes",
+        "cordinates":"new GLatLng(10.593598,-85.543210)",
 		  "markerImage":"../images/maps/aa-end.png",
 		  "frequency": "118.6",
 		  "approach": "125.6",

@@ -89,24 +89,34 @@
 	    <div>
 	      <label for="tail">Tail:</label>
 	      <select name="tail">
-		<option value="TI-BBU">TI-BBU</option>
-		<option value="TI-BAZ">TI-BAZ</option>
-		<option value="TI-AZZ">TI-AZZ</option>
-		<option value="TI-BBM">TI-BBM</option>
-		<option value="TI-BBC">TI-BBC</option>
-		<option value="TI-BBA">TI-BBA</option>
-		<option value="TI-BCZ">TI-BCZ</option>
-		<option value="TI-AZA">TI-AZA</option>
+				<option value="TI-BBU">TI-BBU</option>
+				<option value="TI-BAZ">TI-BAZ</option>
+				<option value="TI-BAR">TI-BAR</option>
+				<option value="TI-BCA">TI-BCA</option>
+				<option value="TI-AZZ">TI-AZZ</option>
+				<option value="TI-BBM">TI-BBM</option>
+				<option value="TI-BBP">TI-BBP</option>
+				<option value="TI-BCC">TI-BCC</option>
+				<option value="TI-BBA">TI-BBA</option>
+				<option value="TI-BDI">TI-BDI</option>
+				<option value="TI-BCZ">TI-BCZ</option>
+				<option value="TI-AZZ">TI-AZZ</option>
+				<option value="TI-AZA">TI-AZA</option>
+				<option value="TI-ATP">TI-ATP</option>
+				<option value="TI-AVO">TI-AVO</option>
 	      </select>
 	    </div>
 	    <div>
 	      <label for="pilot">Pilot:</label>
 	      <select name="pilot">
-		<option value="Federico Laurench">Federico Laurench</option>
-		<option value="Jose Leiva">Jose Leiva</option>
-		<option value="Adam Swafford">Adam Swafford</option>
-		<option value="Dennis Rodman">Dennis Rodman</option>
-		<option value="Alekse Kuzenkov">Alekse Kuzenkov</option>
+				<option value="Federico Laurencich">Federico Laurencich</option>
+				<option value="Jose Leiva">Jose Leiva</option>
+				<option value="Adam Swafford">Adam Swafford</option>
+				<option value="Dennis Iotti">Denis Iotti</option>
+				<option value="Luis Paulino Guzman">Luis Paulino Guzman</option>
+				<option value="Rogelio Navas">Rogelio Navas</option>
+				<option value="Jose Romero">Jose Romero</option>
+				<option value="Alekse Kuzenkov">Alekse Kuzenkov</option>
 	      </select>
 	    </div>
 	    <div><label for="client">Client:</label> <input type="text" class="iinputui" name="client" id="client" /></div>

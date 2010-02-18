@@ -5,6 +5,7 @@
 		"route": [
 		{	
 		  "point":"MRPV",
+		  "airport":"yes",
 		  "cordinates":"new GLatLng(9.958029,-84.139670)",
 		  "course":"291",
 		  "distance":"2.7",
@@ -64,6 +65,7 @@
 		},
 		{	
 		  "point":"MRQP",
+		  "airport":"yes",
 		  "cordinates":"new GLatLng(9.442800,-84.129997)",
 		  "markerImage":"../images/maps/aa-end.png",
 		  "frequency": "126.8",
