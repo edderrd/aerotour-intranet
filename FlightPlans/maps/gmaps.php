@@ -11,16 +11,22 @@
 				if (GBrowserIsCompatible()) {
 				
 					var gmap = new GMap2(document.getElementById("map"));
+                                        var markers = new Array();
 					
 					GDownloadUrl("../data/MRPV-<?= $_GET['point']?>.txt", function(data, responseCode) { 
-						parseJson(gmap, data);	
+						markers = parseJson(gmap, data);
+                                                var bounds = getBounds(markers);
+                                                console.debug(bounds);
+                                                
+                                                gmap.setCenter(bounds.getCenter());
+                                                gmap.setZoom(gmap.getBoundsZoomLevel(bounds));
 					});
 
-					gmap.setUIToDefault();
+                                        gmap.setUIToDefault();
 					gmap.removeMapType(G_SATELLITE_MAP);
 					gmap.disableScrollWheelZoom();
-					gmap.setCenter(new GLatLng(9.884981311823843, -84.078369140625), 9);
-			
+                                        //gmap.setCenter(new GLatLng(9.884981311823843, -84.078369140625), 9);
+                                        
 				} else {
 					map.innerHtml = "<h1>Sorry, your browser cannot handle the true power of Google Maps</h1>";
 				}
