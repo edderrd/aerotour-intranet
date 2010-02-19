@@ -111,6 +111,12 @@ function parseJson (gmap, data) {
 
                 cordinates[i] = jsonData.route[i].cordinates;
                 gmap.addOverlay(markers[i]);
+
+                if ( (i+1) < jsonData.route.length ) {
+                    var markerA = createMarker(jsonData.route[i]);
+                    var markerB = createMarker(jsonData.route[i+1]);
+                    console.debug(getDistance(markerA, markerB));
+                }
 	}
 	
 	createTrack(cordinates, gmap);
@@ -127,13 +133,18 @@ function parseJson (gmap, data) {
 function getBounds(markers)
 {
     var bounds = new GLatLngBounds();
-    console.debug(markers);
 
     for(i = 0; i < markers.length; i++) {
         bounds.extend(markers[i].getLatLng());
     }
-    console.debug(bounds); 
     return bounds;
+}
+
+function getDistance(markerA, markerB)
+{
+    var distance = markerA.getLatLng().distanceFrom(markerB.getLatLng());
+
+    return distance;
 }
 
 /**

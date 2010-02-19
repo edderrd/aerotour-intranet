@@ -16,7 +16,6 @@
 					GDownloadUrl("../data/MRPV-<?= $_GET['point']?>.txt", function(data, responseCode) { 
 						markers = parseJson(gmap, data);
                                                 var bounds = getBounds(markers);
-                                                console.debug(bounds);
                                                 
                                                 gmap.setCenter(bounds.getCenter());
                                                 gmap.setZoom(gmap.getBoundsZoomLevel(bounds));
