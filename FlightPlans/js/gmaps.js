@@ -92,6 +92,23 @@ function createMarker(input) {
 	return marker;
 }
 
+function midPoint(pointA, pointB)
+{
+    var dLon = pointB.lng() - pointA.lng();
+    
+
+    var Bx = Math.cos(pointB.lat()) * Math.cos(dLon);
+    var By = Math.cos(pointB.lat()) * Math.sin(dLon);
+
+    lat3 = Math.atan2(Math.sin(pointA.lat())+Math.sin(pointB.lat()),
+
+    Math.sqrt((Math.cos(pointA.lat())+Bx)*(Math.cos(pointA.lat())+Bx) + By*By ) );
+    lon3 = pointA.lng() + Math.atan2(By, Math.cos(pointA.lat()) + Bx);
+
+    if (isNaN(lat3) || isNaN(lon3)) return null;
+        return new GLatLng(lat3*180/Math.PI, lon3*180/Math.PI);
+}
+
 /**
  * Convert data into gmap overlay
  * 
@@ -113,9 +130,9 @@ function parseJson (gmap, data) {
                 gmap.addOverlay(markers[i]);
 
                 if ( (i+1) < jsonData.route.length ) {
-                    var markerA = createMarker(jsonData.route[i]);
-                    var markerB = createMarker(jsonData.route[i+1]);
-                    console.debug(getDistance(markerA, markerB));
+                    var pointA = jsonData.route[i].cordinates;
+                    var pointB = eval(jsonData.route[i+1].cordinates);
+                    console.debug(getDistance(pointA, pointB));
                 }
 	}
 	
@@ -140,12 +157,14 @@ function getBounds(markers)
     return bounds;
 }
 
-function getDistance(markerA, markerB)
+function getDistance(pointA, pointB)
 {
-    var distance = markerA.getLatLng().distanceFrom(markerB.getLatLng());
-
+    var distance = pointA.distanceFrom(pointB);
+    
     return distance;
 }
+
+
 
 /**
  * Create plot lines between
