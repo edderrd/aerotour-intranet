@@ -1,5 +1,78 @@
 Maps = {
 
+    gmap: null,
+    data: null,
+    markers: new Array(),
+    cordinates: new Array(),
+    bounds: null,
+
+    /**
+     * Main entry program it will create gmap object and parse data from
+     * a especific destination point
+     *
+     * @param document element
+     * @param string jsonString
+     */
+    init: function(element, jsonString) {
+        // initialize gmap
+        this.gmap = new GMap2(element);
+        this.parseJsonResponse(jsonString);
+
+        // add markers
+        this.addMarkers();
+        this.bounds = this.getBounds();
+        this.addTrackLine();
+
+        // center map using bounds
+        this.gmap.setCenter(this.bounds.getCenter());
+        this.gmap.setZoom(this.gmap.getBoundsZoomLevel(this.bounds));
+
+        // default options
+        this.gmap.setUIToDefault();
+        this.gmap.removeMapType(G_SATELLITE_MAP);
+        this.gmap.disableScrollWheelZoom();
+            
+    },
+
+    /**
+     * Converts a string into a javascript object
+     *
+     * @param string response
+     */
+    parseJsonResponse: function(response) {
+        this.data = eval("(" + response + ")");
+    },
+
+    /**
+     * Create markers using routes object
+     */
+    addMarkers: function() {
+        for (i = 0; i < this.data.route.length; i++) {
+            this.data.route[i].cordinates = eval(this.data.route[i].cordinates);
+
+            this.markers[i] = this.createMarker(this.data.route[i]);
+
+            this.cordinates[i] = this.data.route[i].cordinates;
+            this.gmap.addOverlay(this.markers[i]);
+        }
+    },
+
+    /**
+     * Create a distance marker between two points
+     */
+    addDistances: function() {
+        for (i = 0; i < this.data.route.length; i++) {
+            if ( (i+1) < jsonData.route.length ) {
+                var pointA = jsonData.route[i].cordinates;
+                var pointB = eval(jsonData.route[i+1].cordinates);
+                console.debug(getDistance(pointA, pointB));
+                //TODO: Add distance marker
+            }
+
+        }
+    },
+
+
     /**
      * Defines plot icon
      *
@@ -84,10 +157,10 @@ Maps = {
      */
     createMarker: function (input) {
 
-        var marker = new GMarker(input.cordinates, makeIcon(input.markerImage) );
+        var marker = new GMarker(input.cordinates, this.makeIcon(input.markerImage) );
 
-        var tabs_array	= [ new GInfoWindowTab("Checkpoint", formatTabOne(input) ),
-                            new GInfoWindowTab("Information", formatTabTwo(input) ) ];
+        var tabs_array	= [ new GInfoWindowTab("Checkpoint", this.formatTabOne(input) ),
+                            new GInfoWindowTab("Information", this.formatTabTwo(input) ) ];
 
         GEvent.addListener(marker, "click", function() {
                 marker.openInfoWindowTabsHtml(tabs_array);
@@ -112,48 +185,15 @@ Maps = {
     },
 
     /**
-     * Convert data into gmap overlay
-     *
-     * @param json data
-     * @return
-     */
-    parseJson: function (gmap, data) {
-
-        var jsonData = eval("(" + data + ")");
-        var cordinates = new Array();
-        var markers = new Array();
-
-        for (i = 0; i < jsonData.route.length; i++) {
-                jsonData.route[i].cordinates = eval(jsonData.route[i].cordinates);
-
-                markers[i] = createMarker(jsonData.route[i]);
-
-                cordinates[i] = jsonData.route[i].cordinates;
-                gmap.addOverlay(markers[i]);
-
-                if ( (i+1) < jsonData.route.length ) {
-                    var pointA = jsonData.route[i].cordinates;
-                    var pointB = eval(jsonData.route[i+1].cordinates);
-                    console.debug(getDistance(pointA, pointB));
-                }
-        }
-
-        createTrack(cordinates, gmap);
-
-        return markers;
-    },
-
-    /**
      * return gmaps bounds
      *
-     * @param GLatLng markers
      * @return GLatLngBounds
      */
-    getBounds: function (markers) {
+    getBounds: function () {
         var bounds = new GLatLngBounds();
 
-        for(i = 0; i < markers.length; i++) {
-            bounds.extend(markers[i].getLatLng());
+        for(i = 0; i < this.markers.length; i++) {
+            bounds.extend(this.markers[i].getLatLng());
         }
         return bounds;
     },
@@ -165,15 +205,10 @@ Maps = {
     },
 
     /**
-     * Create plot lines between
-     *
-     * @param Gmap gmap
-     * @return Gmap gmap
+     * Create plot lines between markers
      */
-    createTrack: function (cordinates, gmap) {
-        var trackLine = new GPolyline(cordinates, "#E90E96", 5, 0.7);
-        gmap.addOverlay(trackLine);
-
-        return gmap;
+    addTrackLine: function () {
+        var trackLine = new GPolyline(this.cordinates, "#E90E96", 5, 0.7);
+        this.gmap.addOverlay(trackLine);
     }
 }
