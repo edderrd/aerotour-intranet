@@ -207,23 +207,97 @@ Maps = {
      * @param GLatLng pointB
      * @return double on meters format
      */
-    getDistance: function (pointA, pointB){
-        var distance = pointA.distanceFrom(pointB);
+    getDistance: function (pointA, pointB, inNM){
+        var distance = pointA.distanceFrom(pointB)/1000;
 
+        // return in Nautical Miles?
+        if (inNM) {
+            return distance / 1.852;
+        }
         return distance;
     },
 
-    
+    /**
+     * Creates a svg element with some text label
+     * @param string message
+     */
+    createTextMarker: function(message) {
+        var svgDiv = document.createElement("div");
+	svgDiv.setAttribute("id","svgContainer");
+        this.gmap.getPane(G_MAP_MAP_PANE).appendChild(svgDiv);
+
+        var svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+        svg.setAttribute("id", "svg_draw");
+	svg.setAttribute("style", "position:absolute; top:0px; left:0px");
+	svg.setAttribute("viewBox", "0 0 800 600");
+	svg.setAttribute("width", "100%");
+	svg.setAttribute("height", "100%");
+
+        var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect.setAttribute('rx','8');
+        rect.setAttribute('ry','8');
+        rect.setAttribute('x','8');
+        rect.setAttribute('y','8');
+        rect.setAttribute('fill','#f3f3f3');
+        rect.setAttribute('height','16');
+        rect.setAttribute('width','80');
+        rect.setAttribute('stroke','#bb44bb');
+        rect.setAttribute('stroke-width','1');
+
+        var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("y", "19");
+        text.setAttribute("x", "16");
+        text.setAttribute("font-size", "12px");
+        text.textContent = message;
+
+        var group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        group.appendChild(rect);
+        group.appendChild(text);
+        svg.appendChild(group);
+    },
+
+    /**
+     * Get bearing between two points
+     * @param GLatLng from
+     * @param GLatLng to
+     * @return Long
+     */
+    getBearing: function(from, to) {
+        var degreesPerRadian = 180.0 / Math.PI;
+        var lat1 = from.latRadians();
+        var lon1 = from.lngRadians();
+        var lat2 = to.latRadians();
+        var lon2 = to.lngRadians();
+
+        // Compute the angle.
+        var angle = - Math.atan2( Math.sin( lon1 - lon2 ) * Math.cos( lat2 ), Math.cos( lat1 ) * Math.sin( lat2 ) - Math.sin( lat1 ) * Math.cos( lat2 ) * Math.cos( lon1 - lon2 ) );
+        if ( angle < 0.0 )
+            angle  += Math.PI * 2.0;
+
+        // And convert result to degrees.
+        angle = angle * degreesPerRadian;
+        angle = angle.toFixed(1);
+
+        return angle;
+    },
+
+    /**
+     * Create markers overlays for distance and bearing
+     */
     addDistanceMarkers: function() {
-        for (var i = 0; this.markers.length; i++) {
+        for (var i = 0; i < this.markers.length; i++) {
 
             // validate if isn't the end of the array, to avoid a overflow
-            if ((i+1) <= this.markers.length) {
-                var pointA = this.markers[i].getLatLng();
-                var pointB = this.markers[i+1].getLatLng();
+            if ((i+1) < this.markers.length) {
+                var pointA = this.markers[i].getPoint();
+                var pointB = this.markers[i+1].getPoint();
 
-                var distance = this.getDistance(pointA, pointB);
+                var distance = this.getDistance(pointA, pointB, true);
+                var bearing = this.getBearing(pointA, pointB);
 
+                this.createTextMarker(distance + "Km");
+                console.debug("Distance: " + distance + "NM with Bearing: " + bearing);
+                //TODO: add logic to create svg overlay
             }
         }
     },
