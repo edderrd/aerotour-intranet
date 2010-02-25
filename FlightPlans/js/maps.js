@@ -212,9 +212,9 @@ Maps = {
 
         // return in Nautical Miles?
         if (inNM) {
-            return distance / 1.852;
+            return Math.round(distance / 1.852);
         }
-        return distance;
+        return Math.round(distance);
     },
 
     /**
@@ -278,7 +278,7 @@ Maps = {
         angle = angle * degreesPerRadian;
         angle = angle.toFixed(1);
 
-        return angle;
+        return Math.round(angle);
     },
 
     /**
