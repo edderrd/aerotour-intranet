@@ -22,6 +22,8 @@ Maps = {
         this.addMarkers();
         this.bounds = this.getBounds();
         this.addTrackLine();
+        // add distance information
+        this.addDistanceMarkers();
 
         // center map using bounds
         this.gmap.setCenter(this.bounds.getCenter());
@@ -198,10 +200,32 @@ Maps = {
         return bounds;
     },
 
+    /**
+     * Calcualte disntance from two points
+     *
+     * @param GLatLng pointA
+     * @param GLatLng pointB
+     * @return double on meters format
+     */
     getDistance: function (pointA, pointB){
         var distance = pointA.distanceFrom(pointB);
 
         return distance;
+    },
+
+    
+    addDistanceMarkers: function() {
+        for (var i = 0; this.markers.length; i++) {
+
+            // validate if isn't the end of the array, to avoid a overflow
+            if ((i+1) <= this.markers.length) {
+                var pointA = this.markers[i].getLatLng();
+                var pointB = this.markers[i+1].getLatLng();
+
+                var distance = this.getDistance(pointA, pointB);
+
+            }
+        }
     },
 
     /**
