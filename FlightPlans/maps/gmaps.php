@@ -5,6 +5,7 @@
 		<!--<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAQ2Bjps73vB8iCOm6sHY0exRXVcmsZpYJoXnJ-v26hVmq22y-QhT5PPnE1PQfJ8gxxNJollpRIpN1wQ" type="text/javascript"></script> -->
                 <script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAFW8NgZfoxFc3Ht4HxIygBRTCv78iwvdsoKGinnS7fKaSmV9tzhT0xVaw1b-i4zI5DRJgo--17f5TBw" type="text/javascript"></script>
                 <script src="../js/maps.js" type="text/javascript"></script>
+                <script src="../js/elabel.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			
                         function initialize() {
@@ -21,6 +22,20 @@
                             }
                         }
 		</script>
+                <style type="text/css">
+                    .elabel {
+                        background-color: #ffffff;
+                        font-weight: bold;
+                        border: 1px #000000 solid;
+                        width: 80px;
+                        -moz-border-radius: 10px;
+                        -webkit-border-radius: 10px;
+                        padding: 4px;
+                        font-size: 9px;
+                        font-family: Arial, Lucida, San-Serif;
+                        text-align: center;
+                    }
+                </style>
 	</head> 
 	<body onload="initialize()" onunload="GUnload()">
 		<div id="map" style="width: 100%; height: 800px;"></div>

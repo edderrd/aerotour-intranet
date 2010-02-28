@@ -67,10 +67,7 @@ Maps = {
             if ( (i+1) < jsonData.route.length ) {
                 var pointA = jsonData.route[i].cordinates;
                 var pointB = eval(jsonData.route[i+1].cordinates);
-                console.debug(getDistance(pointA, pointB));
-                //TODO: Add distance marker
             }
-
         }
     },
 
@@ -296,8 +293,10 @@ Maps = {
                 var bearing = this.getBearing(pointA, pointB);
 
                 this.createTextMarker(distance + "Km");
-                console.debug("Distance: " + distance + "NM with Bearing: " + bearing);
-                //TODO: add logic to create svg overlay
+                // elabel creation
+                var label = new ELabel(pointA, "Distance " + distance + "NM<br>Bearing " + bearing, "elabel");
+                label.pixelOffset = new GSize(-40,40);
+                this.gmap.addOverlay(label);
             }
         }
     },
