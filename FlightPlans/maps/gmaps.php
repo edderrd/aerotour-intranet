@@ -21,24 +21,28 @@
 
                             }
                         }
-		</script>
+        </script>
                 <style type="text/css">
                     .elabel {
                         background-color: #ffffff;
-                        font-weight: bold;
-                        border: 1px #000000 solid;
-                        width: 80px;
+                        border: 1px #E90E96 solid;
+                        color: #000;
                         -moz-border-radius: 10px;
                         -webkit-border-radius: 10px;
-                        padding: 4px;
-                        font-size: 9px;
-                        font-family: Arial, Lucida, San-Serif;
+                        padding: 3px;
+                        font-size: 11px;
+                        font-family: Helvetica;
                         text-align: center;
+                        -webkit-transform: rotate(0deg);
+                        -moz-transform: rotate(-90deg);
+                        -o-transform: rotate(-90deg);
+                        transform: rotate(-90deg);
+                        rotation: -90deg;
                     }
                 </style>
-	</head> 
-	<body onload="initialize()" onunload="GUnload()">
-		<div id="map" style="width: 100%; height: 800px;"></div>
-	</body> 
+    </head> 
+    <body onload="initialize()" onunload="GUnload()">
+        <div id="map" style="width: 100%; height: 800px;"></div>
+    </body> 
 </html> 
 

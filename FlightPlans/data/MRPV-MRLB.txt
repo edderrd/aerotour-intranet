@@ -73,7 +73,7 @@
         "cordinates":"new GLatLng(10.593598,-85.543210)",
 		  "markerImage":"../images/maps/aa-end.png",
 		  "frequency": "118.6",
-		  "approach": "125.6",
+		  "approach": "126.5",
 		  "tower": "118.6",
 		  "runway": "07/25",
 		  "length": "2750",

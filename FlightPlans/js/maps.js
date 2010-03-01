@@ -117,6 +117,7 @@ Maps = {
      * @return string html
      */
     formatTabTwo: function (input) {
+<<<<<<< HEAD
         var html 	 = "<div class=\"bubble\">";
             html		+= "<p>"
         if(input.course != null) {
@@ -158,7 +159,7 @@ Maps = {
 
         var marker = new GMarker(input.cordinates, this.makeIcon(input.markerImage) );
 
-        var tabs_array	= [ new GInfoWindowTab("Checkpoint", this.formatTabOne(input) ),
+        var tabs_array  = [ new GInfoWindowTab("Checkpoint", this.formatTabOne(input) ),
                             new GInfoWindowTab("Information", this.formatTabTwo(input) ) ];
 
         GEvent.addListener(marker, "click", function() {
@@ -220,15 +221,15 @@ Maps = {
      */
     createTextMarker: function(message) {
         var svgDiv = document.createElement("div");
-	svgDiv.setAttribute("id","svgContainer");
+    svgDiv.setAttribute("id","svgContainer");
         this.gmap.getPane(G_MAP_MAP_PANE).appendChild(svgDiv);
 
         var svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
         svg.setAttribute("id", "svg_draw");
-	svg.setAttribute("style", "position:absolute; top:0px; left:0px");
-	svg.setAttribute("viewBox", "0 0 800 600");
-	svg.setAttribute("width", "100%");
-	svg.setAttribute("height", "100%");
+        svg.setAttribute("style", "position:absolute; top:0px; left:0px");
+        svg.setAttribute("viewBox", "0 0 800 600");
+        svg.setAttribute("width", "100%");
+        svg.setAttribute("height", "100%");
 
         var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         rect.setAttribute('rx','8');
@@ -296,6 +297,8 @@ Maps = {
                 // elabel creation
                 var label = new ELabel(pointA, "Distance " + distance + "NM<br>Bearing " + bearing, "elabel");
                 label.pixelOffset = new GSize(-40,40);
+                var label = new ELabel(pointA, distance + "nm<br/>" + bearing + "&deg;", "elabel");
+                label.pixelOffset = new GSize(-47,10);
                 this.gmap.addOverlay(label);
             }
         }

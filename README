@@ -6,3 +6,22 @@ This is an internal application for Aerotour CR.
 - Utilize predetermited flight routes
 
 Data is store in Json format and pulled using PHP/JS
+Flights stored in SQLite
+
+TODO: 
+- On changing value of Global Magnetic Variation should place that value in all Mag Var text fields.
+- By changing value of Wind Vel. will apply same value for text fields bellow.
+- Drift will be calculated by (   ).
+- Mag Hhg will be calculated by (   ).
+- G.S Knots will be calculated by (   ).
+- Time mins will be displayed in minutes and calculated by Formula: Time = Distance / Ground Speed .
+
+- Total fields
+-- Total G.S. Knots  will be average GS from all GS text fields.
+-- Total Dist nM will be total sum of all Dist nM text fields.
+-- Total Time mins will be sum of all minutes from all time mins text fields.
+
+- Fuel Burn
+-- Fuel burn will take the value from Fuel Burn 14/hour text field, add Taxi, Diversion, Reserve + Entroute(total mins from Totals) and calculate TOTAL fuel required by Formula: ( Total Time / 60 ) * Gallons Burn per hour = Gallons Required.
+
+- Proxy php script to get remote content from a site with post variables.
