@@ -117,7 +117,6 @@ Maps = {
      * @return string html
      */
     formatTabTwo: function (input) {
-<<<<<<< HEAD
         var html 	 = "<div class=\"bubble\">";
             html		+= "<p>"
         if(input.course != null) {
@@ -295,10 +294,7 @@ Maps = {
 
                 this.createTextMarker(distance + "Km");
                 // elabel creation
-                var label = new ELabel(pointA, "Distance " + distance + "NM<br>Bearing " + bearing, "elabel");
-                label.pixelOffset = new GSize(-40,40);
-                var label = new ELabel(pointA, distance + "nm<br/>" + bearing + "&deg;", "elabel");
-                label.pixelOffset = new GSize(-47,10);
+                var label = new ELabel(pointA, distance + "nm<br/>" + bearing + "&deg;", "elabel", new GSize(-47,10), 90, null, bearing+90);
                 this.gmap.addOverlay(label);
             }
         }

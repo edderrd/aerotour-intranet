@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"> 
 	<head> 
 		<meta http-equiv="content-type" content="text/html; charset=utf-8"/> 
-		<!--<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAQ2Bjps73vB8iCOm6sHY0exRXVcmsZpYJoXnJ-v26hVmq22y-QhT5PPnE1PQfJ8gxxNJollpRIpN1wQ" type="text/javascript"></script> -->
+		       <!--<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAQ2Bjps73vB8iCOm6sHY0exRXVcmsZpYJoXnJ-v26hVmq22y-QhT5PPnE1PQfJ8gxxNJollpRIpN1wQ" type="text/javascript"></script>-->
                 <script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAFW8NgZfoxFc3Ht4HxIygBRTCv78iwvdsoKGinnS7fKaSmV9tzhT0xVaw1b-i4zI5DRJgo--17f5TBw" type="text/javascript"></script>
                 <script src="../js/maps.js" type="text/javascript"></script>
                 <script src="../js/elabel.js" type="text/javascript"></script>
@@ -31,13 +31,13 @@
                         -webkit-border-radius: 10px;
                         padding: 3px;
                         font-size: 11px;
-                        font-family: Helvetica;
+                        font-family: Arial, San-serif;
                         text-align: center;
-                        -webkit-transform: rotate(0deg);
+                        /*-webkit-transform: rotate(-90deg);
                         -moz-transform: rotate(-90deg);
                         -o-transform: rotate(-90deg);
                         transform: rotate(-90deg);
-                        rotation: -90deg;
+                        rotation: -90deg;*/
                     }
                 </style>
     </head> 
