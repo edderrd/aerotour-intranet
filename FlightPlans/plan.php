@@ -31,18 +31,19 @@
 	      //Get MRPV NOTAM
 			$.ajax({
 				type: "POST",
-				url: "php/proxyNotam.php?url=http://www.easymetar.com/notam_query_result.php",
-				data: {'icao_codes': 'MRPV'},
+				url: "php/proxyNotam.php?url=https://www.notams.jcs.mil/dinsQueryWeb/queryRetrievalMapAction.do",
+				data: {'retrieveLocId': 'MRPV'},
 				success: function(data) {
-					$('#mrpvnotam').html(data);
+					$('#mrpvnotam')
+                                            .html(data);
 				}
 			});
 			
 	      //Get POINT NOTAM
 			$.ajax({
 				type: "POST",
-				url: "php/proxyNotam.php?url=http://www.easymetar.com/notam_query_result.php",
-				data: {'icao_codes': point},
+				url: "php/proxyNotam.php?url=https://www.notams.jcs.mil/dinsQueryWeb/queryRetrievalMapAction.do",
+				data: {'retrieveLocId': point},
 				success: function(data) {
 					$('#' + point + 'notam').html(data);
 				}
