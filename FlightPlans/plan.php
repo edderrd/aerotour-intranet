@@ -10,31 +10,66 @@
     <script src="js/jquery-ui.js" type="text/javascript"></script><!-- don't remove -->
     <script src="js/ui.iTabs.js" type="text/javascript"></script><!-- don't remove -->
     <script src="js/jquery.getParams.js" type="text/javascript"></script><!-- don't remove -->
+    <!--<script src="js/jquery.calculation.js" type="text/javascript"></script> don't remove -->
     <script src="js/css_selector.js" type="text/javascript"></script><!-- don't remove -->
+    <script src="js/plan.js" type="text/javascript"></script><!-- don't remove -->
     
 	<script type="text/javascript">/* <![CDATA[ */
 	  $(function(){
 		  
 	      //Parameter for type
-	      type = $.getUrlVar("type");
+	      atype = $.getUrlVar("type");
 	      //Parameter for zone
 	      zone = $.getUrlVar("zone");
 	      //Parameter for point
 	      point = $.getUrlVar("point");
-	      $("#crumbs").html(type + "<span class='chevron'/>" + zone + "<span class='chevron'/>" + point);
+	      $("#crumbs").html(atype + "<span class='chevron'/>" + zone + "<span class='chevron'/>" + point);
 
 	      //Get TAF
 	      $("#metar").load("php/proxy.php?url=http://aviationweather.gov/adds/tafs/index.php?station_ids=MRPV+" + point);
+	      
+	      //Get MRPV NOTAM
+			$.ajax({
+				type: "POST",
+				url: "php/proxyNotam.php?url=http://www.easymetar.com/notam_query_result.php",
+				data: {'icao_codes': 'MRPV'},
+				success: function(data) {
+					$('#mrpvnotam').html(data);
+				}
+			});
+			
+	      //Get POINT NOTAM
+			$.ajax({
+				type: "POST",
+				url: "php/proxyNotam.php?url=http://www.easymetar.com/notam_query_result.php",
+				data: {'icao_codes': point},
+				success: function(data) {
+					$('#' + point + 'notam').html(data);
+				}
+			});
 	      
 	      //Insert value into flight plan
 	      $("#topPlan").val('MRPV - ' + point);
 	      
 	      //Insert value into Header
 	      $("#headPoint").text('MRPV - ' + point);
-	      $("#headType").text(type);
+	      $("#headType").text(atype);
+	      
+	      //Calculate average ground speed
+			/*
+			$("input[name^='avgSpeed']").avg({
+				  bind: "keyup"
+				, selector: "#averageSpeed"
+				, oncalc: function (value, settings){
+					// you can use this callback to format values
+					$(settings.selector).html("$" + value);
+				}
+			});
+			*/
 
 	      //Make Tabs
 	      $(".tabbar").iTabs();
+calculateFuelBurn();
 		  
 	  });
 	/* ]]> */
@@ -56,7 +91,7 @@
     <h2>Flight Plan <span class='chevron'></span> <span id="crumbs"></span></h2>  
     <ul>  
       <li class="single">
-		<form action="http://#" method="post" enctype="multipart/form-data" name="frm1" id="frm1" onclick="javascript:highlight(event);" onkeyup="javascript:highlight(event)" > 
+		<form action="http://#" method="post" enctype="multipart/form-data" name="frm1" id="frm1" > 
 		  <table class="tableOne" width="100%"   border="1" cellpadding="0" cellspacing="1" > 
 		    <tr> 
 		      <th width="5%" height="19" align="center" valign="top" style="padding:5px;">HobbsOut </th> 
@@ -115,40 +150,34 @@
 		        E<br /> 
 		        G </td> 
 		      <td class="coloured" colspan="3">True Air Speed
-		        <input name="tas" class="inputs" type="integer" id="tas" onchange="itemChange(this.form,'tas','0','0','250')" size="3" value='100' /> 
+		        <input name="tas" class="inputs" type="integer" id="tas" onchange="itemChange(this.form,'tas','0','0','250')" size="3" value='110' /> 
 		        Kts</td> 
 		      <td class="coloured" colspan="9">Global Magnetic Variation
-		        <input name="variation" class="inputs" id="variation" onchange="magVarChange(this.form,'variation')" value='0' size="3"  /> 
+		        <input name="variation" class="inputs" id="magVar" onkeyup="magVarChange($(this));" value='0' size="3" maxlength="3"  /> 
 		&plusmn; deg</td> 
 		      <td  class="coloured" width="13" rowspan="3" align="center"> L<br /> 
 		        E<br /> 
 		        G </td> 
 		    </tr> 
 		    <tr> 
-		      <th width="74" rowspan="2" align="center">From / To</th> 
+		      <th width="74" rowspan="2" align="left">&nbsp;From / To</th> 
 		      <th width="40" height="20" ><nobr>Safe Alt</nobr></th> 
-		      <th width="42"  rowspan="2">True<br /> 
-		        Track </th> 
-		      <th  width="61" rowspan="2">Wind<br /> 
-		        Vel.</th> 
-		      <th width="44" rowspan="2" >Mag<br /> 
-		        Var</th> 
+		      <th width="42"  rowspan="2">True<br /> Track </th> 
+		      <th  width="61" rowspan="2">Wind<br /> Vel.</th> 
+		      <th width="44" rowspan="2" >Mag<br /> Var</th> 
 		      <th width="54" >Drift</th> 
-		      <th width="51"  rowspan="2">G.S. <br /> 
-		        Knots</th> 
-		      <th width="48" rowspan="2">Dist<br /> 
-		        nM </th> 
-		      <th width="42"  rowspan="2">Time<br /> 
-		        mins </th> 
+		      <th width="51"  rowspan="2">G.S. <br /> Knots</th> 
+		      <th width="48" rowspan="2">Dist<br /> nM </th> 
+		      <th width="42"  rowspan="2">Time<br /> mins </th> 
 		      <th width="112" >&nbsp;ETA</th> 
-		      <th width="42" >&nbsp;FIS</th>
+		      <th width="42" >&nbsp;Freq.</th>
 		      <th width="44" >&nbsp;VOR</th>
 		    </tr> 
 		    <tr> 
 		      <th><nobr>Plan Alt</nobr></th> 
 		      <th><nobr>Mag Hdg</nobr></th> 
 		      <th>Actual</th> 
-		      <th>Freq.</th>
+		      <th>FIS</th>
 		      <th>Squawk</th>
 		    </tr>
 
@@ -160,28 +189,28 @@
 				?>
 				<tr>
 					<td <?= $alterRowClass ?> rowspan="2" align="center"><?= $rowNumber ?></td>
-					<td <?= $rowClass ?> align="center"><strong><?= $row['point'] ?></strong></td>
+					<td <?= $rowClass ?> align="left">&nbsp;<strong><?= $row['point'] ?></strong></td>
 					<td <?= $rowClass ?> align="center"><strong class="red"><?= $row['altitude'] ?></strong></td>
-					<td <?= $rowClass ?> align="center"><?= $row['course'] ?></td>
-					<td <?= $rowClass ?> align="center"><input onchange="itemChange(this.form,'windVel','1','0','360')" name="windVel1" class="inputs" type="text" id="windVel1" size="6" value="000/00" /></td>
-					<td <?= $rowClass ?> align="center"><input onchange="itemChange(this.form,'magVar','1','0','360')" name="magVar1" type="text" class="inputs" id="magVar1" size="4" maxlength="4" value='0'  /></td>
-					<td <?= $rowClass ?> align="center"><input class="inputs" name="drift1"  type="text" id="drift1" size="5" readonly="readonly"  /></td>
-					<td <?= $rowClass ?> align="center" valign="top"><input class="inputs" name="groundSpeed1"  type="text" id="groundSpeed1" size="3" readonly="readonly" /></td>
+					<td <?= $rowClass ?> align="center"><input class="inputs trueTrack" name="trueTrack"  type="text" size="5" value="<?= $row['course'] ?>" readonly="readonly"  /></td>
+					<td <?= $rowClass ?> align="center"><input onkeyup="windDirVelocity($(this))" name="windVel" class="inputs windVel" type="text" id="windVel1" size="6" value="000/00" /></td>
+					<td <?= $rowClass ?> align="center"><input name="magVar" type="text" class="inputs magVar" size="4" maxlength="4" value='0' readonly="readonly" /></td>
+					<td <?= $rowClass ?> align="center"><input class="inputs drift" name="drift" type="text" size="5" readonly="readonly"  /></td>
+					<td <?= $rowClass ?> align="center" valign="top"><input class="inputs gsKnots" name="avgSpeed"  type="text" size="3" readonly="readonly" /></td>
 					<td <?= $rowClass ?> align="center"><?= $row['distance'] ?></td>
-					<td <?= $rowClass ?> align="center" valign="top"><input  name="time1" type="text" class="highlight" id="time1" size="3" readonly="readonly" /></td>
+					<td <?= $rowClass ?> align="center" valign="top"><input  name="time" type="text" class="highlight totTime" size="3" readonly="readonly" /></td>
 					<td <?= $rowClass ?> >&nbsp;</td>
 					<td <?= $rowClass ?> align="center"><?= $row['frequency'] ?></td>
 					<td <?= $rowClass ?> align="center">&nbsp;</td>
 					<td <?= $alterRowClass ?> rowspan="2" align="center"><?= $rowNumber ?></td>
 				</tr>
 				<tr>
-					<td <?= $rowClass ?> align="center"><?= $route[$rowNumber]['point'] ?></td>
+					<td <?= $rowClass ?> align="left">&nbsp;<?= $route[$rowNumber]['point'] ?></td>
 					<td <?= $rowClass ?> align="center"></td>
 					<td <?= $rowClass ?> colspan="3" align="left">&nbsp;</td>
-					<td <?= $rowClass ?> align="center" ><input class="highlight" name="heading1"  type="text" id="heading1" size="4" readonly="readonly" /></td>
+					<td <?= $rowClass ?> align="center" ><input class="highlight heading" name="heading"  type="text" size="4" readonly="readonly" /></td>
 					<td <?= $rowClass ?> colspan="3" align="left" valign="top">&nbsp;</td>
 					<td <?= $rowClass ?> >&nbsp;</td>
-					<td <?= $rowClass ?> align="center"><input name="freq" class="inputs" type="text" id="freq" size="7" /></td>
+					<td <?= $rowClass ?> align="center">&nbsp;</td>
 					<td <?= $rowClass ?> align="center">&nbsp;</td>
 				</tr>
              <?php endforeach; ?>
@@ -196,33 +225,33 @@
               
               <table width="100%" border="0">
                 <tr>
-                  <td align="left" valign="top"><textarea name="textarea" cols="70" rows="11" >Notes.</textarea></td>
-                  <td width="124"  align="right" valign="top">
-                  <table border="0" align="right" cellpadding="0" cellspacing="0" >
+                  <td align="left" valign="top"><textarea name="textarea" cols="70" rows="8" >Notes.</textarea></td>
+                  <td width="150px"  align="right" valign="top">
+                  <table border="0" align="right" cellpadding="0" cellspacing="0" width="100%" >
                     <tr>
-                      <td class="coloured" colspan="2"><div align="left">Fuel Burn
-                              <input name="fuelcons" class="inputs" type="text" id="fuelcons" value="10" size="2" maxlength="2" onchange="itemChange(this.form,'fuelcons','0','0','');" />
-                    per hour</div></td>
+                      <td class="coloured" colspan="2"><div align="left">&nbsp;Fuel Burn
+                              <input name="fuelcons" class="inputs" type="text" id="fuelcons" value="14" size="2" maxlength="2" onkeyup="calculateFuelBurn($(this));" />
+                    / hr</div></td>
                     </tr>
                     <tr>
-                      <th width="65" align="left">Taxi</th>
-                      <td width="60" align="center"><input name="taxi" class="inputs" type="text" id="taxi" size="3" /></td>
+                      <th align="left" width="70px">Taxi</th>
+                      <td align="center"><input name="taxi" class="inputs fuelSum" type="text" id="taxi" size="3" value="10" readonly="readonly"/>min</td>
                     </tr>
                     <tr>
                       <th align="left">Enroute</th>
-                      <td align="center"><input name="enroute" class="inputs" type="text" id="enroute" size="3" /></td>
+                      <td align="center"><input name="enroute" class="inputs fuelSum" type="text" id="enroute" size="3" readonly="readonly" value="<?= $parser->getTotalTime() ?>" />min</td>
                     </tr>
                     <tr>
                       <th align="left">Diversion</th>
-                      <td align="center"><input name="diversion" class="inputs" type="text" id="diversion" size="3" /></td>
+                      <td align="center"><input name="diversion" class="inputs fuelSum" type="text" id="diversion" size="3" value="20" readonly="readonly"/>min</td>
                     </tr>
                     <tr>
                       <th align="left">Reserve</th>
-                      <td align="center"><input name="reserve" class="inputs" type="text" id="reserve" size="3" /></td>
+                      <td align="center"><input name="reserve" class="inputs fuelSum" type="text" id="reserve" size="3" value="20" readonly="readonly"/>min</td>
                     </tr>
                     <tr>
                       <th align="left">TOTAL fuel required</th>
-                      <td align="left"><input name="total" class="inputs" type="text" id="total" size="6" /></td>
+                      <td align="left"><input name="totalFuel" class="inputs strong larger" type="text" id="totalFuel" size="6" readonly="readonly" /></td>
                     </tr>
                   </table>
                   </td>
@@ -254,12 +283,16 @@
       <li><div id="metar" class="disclamer">metar will load here</div></li>
       <li>
 	    <ul class="tabbar itabsui">
-			<li><a class="iicon" href="#tower" title="MRPV Tower"><em class="ii-weather"></em>MRPV Tower</a></li>
+	    	<li><a class="iicon" href="#mrpvnotams" title="MRPV NOTAMS"><em class="ii-radar"></em>MRPV NOTAMS</a></li>
+			<li><a class="iicon" href="#tower" title="MRPV Tower"><em class="ii-flag"></em>MRPV Tower</a></li>
 			<li><a class="iicon" href="#weather" title="Weather Satelite"><em class="ii-cloud"></em>Weather Satelite</a></li>
 			<li><a class="iicon" href="#infrared" title="Infrared Satelite"><em class="ii-weather"></em>Infrared Satelite</a></li>
 			<li><a class="iicon" href="#noaa" title="Noaa Satelite"><em class="ii-brightness"></em>NOAA Satelite</a></li>
-			<li><a class="iicon" href="#isacar" title="Isacar Satelite"><em class="ii-umbrella"></em>Isacar Satelite</a></li>
+			<li><a class="iicon" href="#<?= $_GET['point'] ?>notams" title="<?= $_GET['point'] ?> NOTAMS"><em class="ii-radar"></em><?= $_GET['point'] ?> NOTAMS</a></li>
 	    </ul>
+	    <div id="mrpvnotams" title="MRPV NOTAMS">
+			<p id="mrpvnotam" class="disclamer">MRPV notam will load here</p>
+	    </div>
 	    <div id="tower" title="MRPV Tower">
 			<p style="text-align:center;">
 				<img src="http://www.imn.ac.cr/especial/QNHPAVAS.png" width="360px"/>
@@ -275,8 +308,8 @@
 	    <div id="noaa" title="NOAA Satelite">
 	        <img src="http://cimss.ssec.wisc.edu/goes/burn/data/rtloopregional/centamer/latest_centamer.gif" width="100%"/>
 	    </div>
-	    <div id="isacar" title="Isacar Satelite">
-	        <img src="http://sirocco.accuweather.com/sat_mosaic_400x300_public/IR/isacar.gif" width="100%"/>
+	    <div id="<?= $_GET['point'] ?>notams" title="<?= $_GET['point'] ?> NOTAMS">
+			<p id="<?= $_GET['point'] ?>notam" class="disclamer"><?= $_GET['point'] ?> notam will load here</p>
 	    </div>
       </li>
     </ul>  

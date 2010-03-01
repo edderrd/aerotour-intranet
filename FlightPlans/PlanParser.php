@@ -86,8 +86,8 @@ class PlanParser
      */
     public function getTotalTime()
     {
-        $tt = "00:00:00";
-        return $tt;
+        $rv = "120";
+        return $rv;
     }
 
     /**
@@ -98,8 +98,8 @@ class PlanParser
      */
     public function getAverageSpeed()
     {
-        $as = "83";
-        return $as;
+        $rv = "83";
+        return $rv;
     }
     
     /**
@@ -117,6 +117,37 @@ class PlanParser
                 $rv[] = $row;
             }
         }
+        
+        return $rv;
+    }
+    
+    /**
+     * Returns time to travel between each point
+     * Formula: Time = Distance / Ground Speed
+     * ie. 329miles / 94knots = 3.5 hours (3hours 30min) 
+     *
+     * @return array
+     */
+    public function getTimes()
+    {
+        $rv = array();
+        
+        return $rv;
+    }
+    
+    /**
+     * Returns Total Fuel Required
+     * Formula: ( Total Time / 60 ) * Gallons Burn per hour = Gallons Required
+     * ie. 2 hours (120min / 60) * 14gallons per hour burn = 28 gallons required
+     * additional 20 min should be added to total time for reserve, + 10 min for start up.
+     *
+     * This will probably JS function since it requires input from a text field on Burn Per Hour Rate.
+     *
+     * @return array
+     */
+    public function getFuel()
+    {
+        $rv = array();
         
         return $rv;
     }

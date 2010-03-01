@@ -102,19 +102,38 @@ function parseJson (gmap, data) {
 				
 	var jsonData = eval("(" + data + ")");
 	var cordinates = new Array();
-	
+        var markers = new Array();
+        
 	for (i = 0; i < jsonData.route.length; i++) {
                 jsonData.route[i].cordinates = eval(jsonData.route[i].cordinates);
                 
-                var marker = createMarker(jsonData.route[i]);
+                markers[i] = createMarker(jsonData.route[i]);
 
                 cordinates[i] = jsonData.route[i].cordinates;
-                gmap.addOverlay(marker);
+                gmap.addOverlay(markers[i]);
 	}
 	
 	createTrack(cordinates, gmap);
 	
-	return gmap;
+	return markers;
+}
+
+/**
+ * return gmaps bounds
+ *
+ * @param GLatLng markers
+ * @return GLatLngBounds
+ */
+function getBounds(markers)
+{
+    var bounds = new GLatLngBounds();
+    console.debug(markers);
+
+    for(i = 0; i < markers.length; i++) {
+        bounds.extend(markers[i].getLatLng());
+    }
+    console.debug(bounds); 
+    return bounds;
 }
 
 /**
