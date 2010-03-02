@@ -79,6 +79,12 @@ input.inputsAltCentered {
 	color: Black;
 	text-align: center;
 }
+.strong {
+	font-weight: bold;
+}
+.larger {
+	font-size: 1.2em;
+}
 
 Table {
 	border: 1px Black;

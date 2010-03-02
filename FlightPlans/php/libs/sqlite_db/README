@@ -1,0 +1,42 @@
+###---###---###---###--- Welcome to Class-db ---###---###---###---###
+
+#- What is class-db:
+Class-db is a php5 base class to create database access wrapper
+and to ease programmer work when it's time to work with database.
+Class-db comes with some extended class for mysql and sqlite so
+you can check thoose out to see how to create your own extended
+database wrapper.
+
+#- Author
+Jonathan Gotti < jgotti at jgotti dot org >
+
+#- Licence
+http://opensource.org/licenses/lgpl-license.php GNU Lesser General Public License
+
+#- History
+I've created first version of class-db in 2003 (in fact it was only
+class-mysqldb at this time) to assist me dealing with mysql database
+common operation. after some change and i finally split it in a two
+class: class-db and class-mysqldb in 2006 (there was already a sqlite
+wrapper too at this time)
+Over the time i added it some stuff as some methods to paginate results
+and one of my favourite the smart question marks in conditions strings.
+(still in 2006). I also added the possibility to have a single
+instance of the same database connection (since 2007) and a new
+decorator dbProfiler class to help profiling your application in 2008
+and there we are.
+
+#- How to use
+you can find some sample of usage in the example file provided with the
+library. you may additionnaly find some documentation at
+http://trac.jgotti.net/class-db/wiki
+
+#- contribution, bug report and feedback
+Contribution, feedback and bug report are ALWAYS apreciated so don't
+hesitate to send me a mail i'll always reply to you.
+Also you can leave you bug reports at the online at
+http://trac.jgotti.net/class-db/newticket
+but please first check for any previous report at
+http://trac.jgotti.net/class-db/report/6
+Contribution to the wiki is appreciated too.
+

@@ -1,0 +1,15 @@
+{
+     "type": "Helicopter",
+     "zone": "Pacific Central",
+     "flight": "MRPV-MRQP",
+     "route": [
+         { "start": "MRPV", "lat": "9.958029", "lon": "-84.139670", "crs": "291", "dst": "2.7", "alt": "3600", "frq": "118.3" },
+         { "waypoint1": "PEDRE", "lat": "9.975018", "lon": "-84.182672", "crs": "256", "dst": "10.9", "alt": "3500", "frq": "118.6" },
+         { "waypoint2": "BALSA", "lat": "9.931294", "lon": "-84.361263", "crs": "263", "dst": "9.4", "alt": "2500", "frq": "126.8" },
+         { "waypoint3": "OROTINA", "lat": "9.911895", "lon": "-84.519587", "crs": "217", "dst": "8.4", "alt": "1500", "frq": "123.0" },
+         { "waypoint4": "RIO TARCOLES", "lat": "9.798963", "lon": "-84.604937", "crs": "187", "dst": "11", "alt": "1500", "frq": "123.0" },
+         { "waypoint5": "JACO", "lat": "9.615520", "lon": "-84.628473", "crs": "109", "dst": "31", "alt": "1000", "frq": "126.8" },
+         { "end": "MRQP", "lat": "9.442800", "lon": "-84.129997", "crs": "109", "dst": "0", "alt": "0", "frq": "126.8" }
+     ],
+     "approved": true
+ }

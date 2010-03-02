@@ -1,0 +1,14 @@
+{
+     "type": "Helicopter",
+     "zone": "Pacific Central",
+     "flight": "MRPV-???",
+     "route": [
+         { "start": "MRPV", "lat": "9.958029", "lon": "-84.139670", "crs": "291", "dst": "2.7", "alt": "3600", "frq": "118.3" },
+         { "waypoint1": "PEDRE", "lat": "9.975018", "lon": "-84.182672", "crs": "256", "dst": "10.9", "alt": "3500", "frq": "118.6" },
+         { "waypoint2": "BALSA", "lat": "9.931294", "lon": "-84.361263", "crs": "263", "dst": "9.4", "alt": "2500", "frq": "126.8" },
+         { "waypoint3": "OROTINA", "lat": "9.911895", "lon": "-84.519587", "crs": "", "dst": "", "alt": "1500", "frq": "123.0" },
+         { "waypoint4": "MRCH", "lat": "", "lon": "", "crs": "", "dst": "", "alt": "", "frq": "123.0" },
+         { "end": "Los Suenos", "lat": "", "lon": "", "crs": "", "dst": "", "alt": "", "frq": "126.8" }
+     ],
+     "approved": true
+ }

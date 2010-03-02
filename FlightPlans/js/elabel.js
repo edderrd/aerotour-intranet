@@ -20,7 +20,7 @@
 // version 1.8      remove the old GMarkerManager support due to clashes with v2.143
 
 
-      function ELabel(point, html, classname, pixelOffset, percentOpacity, overlap) {
+      function ELabel(point, html, classname, pixelOffset, percentOpacity, overlap, rotation) {
         // Mandatory parameters
         this.point = point;
         this.html = html;
@@ -33,9 +33,11 @@
           if(percentOpacity>100){percentOpacity=100;}
         }        
         this.percentOpacity = percentOpacity;
+        this.rotation = rotation;
         this.overlap=overlap||false;
         this.hidden = false;
-      } 
+        this.rotation = rotation;
+      }
       
       ELabel.prototype = new GOverlay();
 
@@ -52,6 +54,10 @@
           if(typeof(div.style.MozOpacity)=='string'){div.style.MozOpacity=this.percentOpacity/100;}
           if(typeof(div.style.opacity)=='string'){div.style.opacity=this.percentOpacity/100;}
         }
+        if (this.rotation) {
+            if(typeof(div.style.webkitTransform)=='string') {div.style.webkitTransform='rotate('+this.rotation+'deg)';}
+            if(typeof(div.style.MozTransform)=='string') {div.style.MozTransform='rotate('+this.rotation+'deg)';}
+        }
         if (this.overlap) {
           var z = GOverlay.getZIndex(this.point.lat());
           this.div_.style.zIndex = z;
@@ -66,7 +72,7 @@
       }
 
       ELabel.prototype.copy = function() {
-        return new ELabel(this.point, this.html, this.classname, this.pixelOffset, this.percentOpacity, this.overlap);
+        return new ELabel(this.point, this.html, this.classname, this.pixelOffset, this.percentOpacity, this.overlap, this.rotation);
       }
 
       ELabel.prototype.redraw = function(force) {
@@ -115,6 +121,7 @@
       }
       
       ELabel.prototype.setOpacity = function(percentOpacity) {
+        console.debug(this);
         if (percentOpacity) {
           if(percentOpacity<0){percentOpacity=0;}
           if(percentOpacity>100){percentOpacity=100;}
@@ -125,6 +132,15 @@
           if(typeof(this.div_.style.KHTMLOpacity)=='string'){this.div_.style.KHTMLOpacity=this.percentOpacity/100;}
           if(typeof(this.div_.style.MozOpacity)=='string'){this.div_.style.MozOpacity=this.percentOpacity/100;}
           if(typeof(this.div_.style.opacity)=='string'){this.div_.style.opacity=this.percentOpacity/100;}
+        }
+      }
+
+      ELabel.prototype.setRotation = function(rotation) {
+        this.rotation = rotation;
+        if (this.rotation) {
+          // webkit based browsers
+          if(typeof(this.div_.style.webkitTransform)=='string') {this.div_.style.webkitTransform='rotate('+rotation+'deg)';}
+          if(typeof(this.div_.style.MozTransform)=='string') {this.div_.style.MozTransform='rotate('+rotation+'deg)';}
         }
       }
 
