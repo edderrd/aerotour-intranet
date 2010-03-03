@@ -117,10 +117,13 @@ calculateFuelBurn();
 		  
 			<?php
 			   require_once dirname(__FILE__) . "/PlanParser.php";
+                           require_once dirname(__FILE__) . "/maps/MapsData.php";
 			
 			   $endPoint = $_GET['point'];
 			   $parser = new PlanParser($endPoint);
 			   $route = $parser->getRoute();
+                           $mapsData = new MapsData($endPoint);
+                           $bearingsDistances = $mapsData->getBearingsDistances();
 			?>
 				
 		  <table class="tableOne" width="100%"  border="1" cellpadding="0" cellspacing="1" > 
@@ -192,12 +195,12 @@ calculateFuelBurn();
 					<td <?= $alterRowClass ?> rowspan="2" align="center"><?= $rowNumber ?></td>
 					<td <?= $rowClass ?> align="left">&nbsp;<strong><?= $row['point'] ?></strong></td>
 					<td <?= $rowClass ?> align="center"><strong class="red"><?= $row['altitude'] ?></strong></td>
-					<td <?= $rowClass ?> align="center"><input class="inputs trueTrack" name="trueTrack"  type="text" size="5" value="<?= $row['course'] ?>" readonly="readonly"  /></td>
+					<td <?= $rowClass ?> align="center"><input class="inputs trueTrack" name="trueTrack"  type="text" size="5" value="<?= $bearingsDistances[$row['point']]['bearing'] ?>" readonly="readonly"  /></td>
 					<td <?= $rowClass ?> align="center"><input onkeyup="windDirVelocity($(this))" name="windVel" class="inputs windVel" type="text" id="windVel1" size="6" value="000/00" /></td>
 					<td <?= $rowClass ?> align="center"><input name="magVar" type="text" class="inputs magVar" size="4" maxlength="4" value='0' readonly="readonly" /></td>
 					<td <?= $rowClass ?> align="center"><input class="inputs drift" name="drift" type="text" size="5" readonly="readonly"  /></td>
 					<td <?= $rowClass ?> align="center" valign="top"><input class="inputs gsKnots" name="avgSpeed"  type="text" size="3" readonly="readonly" /></td>
-					<td <?= $rowClass ?> align="center"><?= $row['distance'] ?></td>
+					<td <?= $rowClass ?> align="center"><?= $bearingsDistances[$row['point']]['distance'] ?></td>
 					<td <?= $rowClass ?> align="center" valign="top"><input  name="time" type="text" class="highlight totTime" size="3" readonly="readonly" /></td>
 					<td <?= $rowClass ?> >&nbsp;</td>
 					<td <?= $rowClass ?> align="center"><?= $row['frequency'] ?></td>
