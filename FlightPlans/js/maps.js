@@ -98,16 +98,16 @@ Maps = {
      * @return string html
      */
     formatTabOne: function (input) {
-    var html     = "<div class=\"bubble\">";
-    html        += "<h4>" + input.point + "</h4>";      
-    html        += "<p>"
-    html        += "GPS <b>" + input.cordinates + "</b><br />"
-    if(input.altitude != null) {
-    html        += "Safe altitude <b>" + input.altitude + "ft.</b><br />";
-    }
-    html        += "Communicate: <b>" + input.frequency + "</b>";
-    html        += "</p></div>";                    
-    return html;            
+	var html 	 = "<div class=\"bubble\">";
+	html 		+= "<h4>" + input.point + "</h4>";		
+	html		+= "<p>"
+	html		+= "GPS <b>" + input.cordinates + "</b><br />"
+	if(input.altitude != null) {
+	html 		+= "Safe altitude <b>" + input.altitude + "ft.</b><br />";
+	}
+	html 		+= "Communicate: <b>" + input.frequency + "</b>";
+	html		+= "</p></div>";					
+	return html;			
     },
 
     /**
@@ -117,37 +117,31 @@ Maps = {
      * @return string html
      */
     formatTabTwo: function (input) {
-        var html     = "<div class=\"bubble\">";
-            html        += "<p>"
-        if(input.course != null) {
-            html    += "Track to next point: <b>" + input.course + "&#186;</b><br />";
-        }
-        if(input.distance != null) {
-            html    += "Distance to next point: <b>" + input.distance + "nm.</b><br />";
-        }
+        var html 	 = "<div class=\"bubble\">";
+            html		+= "<p>"
         if(input.runway != null) {
-            html    += "Runway: <b>" + input.runway + "</b><br />";
+            html 	+= "Runway: <b>" + input.runway + "</b><br />";
         }
         if(input.length != null) {
-            html    += "Length: <b>" + input.length + "m.</b><br />";
+            html 	+= "Length: <b>" + input.length + "m.</b><br />";
         }
         if(input.ground != null) {
-            html    += "Type: <b>" + input.ground + "</b><br />";
+            html 	+= "Type: <b>" + input.ground + "</b><br />";
         }
         if(input.approach != null) {
-            html    += "Approach: <b>" + input.approach + "</b><br />";
+            html 	+= "Approach: <b>" + input.approach + "</b><br />";
         }
         if(input.tower != null) {
-            html    += "Tower: <b>" + input.tower + "</b><br />";
+            html 	+= "Tower: <b>" + input.tower + "</b><br />";
         }
         if(input.twrground != null) {
-            html    += "Ground: <b>" + input.twrground + "</b>";
+            html 	+= "Ground: <b>" + input.twrground + "</b>";
         }
-        html        += "</p></div>";
+        html 		+= "</p></div>";
 
         return html;
     },
-    
+	
     /**
      * Actual point in the map
      *
@@ -158,8 +152,8 @@ Maps = {
 
         var marker = new GMarker(input.cordinates, this.makeIcon(input.markerImage) );
 
-        var tabs_array  = [ new GInfoWindowTab("Checkpoint", this.formatTabOne(input) ),
-                            new GInfoWindowTab("Information", this.formatTabTwo(input) ) ];
+        var tabs_array  = [ new GInfoWindowTab(" Checkpoint ", this.formatTabOne(input) ),
+                            new GInfoWindowTab(" Information ", this.formatTabTwo(input) ) ];
 
         GEvent.addListener(marker, "click", function() {
                 marker.openInfoWindowTabsHtml(tabs_array);
@@ -225,10 +219,10 @@ Maps = {
 
         var svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
         svg.setAttribute("id", "svg_draw");
-    svg.setAttribute("style", "position:absolute; top:0px; left:0px");
-    svg.setAttribute("viewBox", "0 0 800 600");
-    svg.setAttribute("width", "100%");
-    svg.setAttribute("height", "100%");
+        svg.setAttribute("style", "position:absolute; top:0px; left:0px");
+        svg.setAttribute("viewBox", "0 0 800 600");
+        svg.setAttribute("width", "100%");
+        svg.setAttribute("height", "100%");
 
         var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         rect.setAttribute('rx','8');
@@ -294,8 +288,7 @@ Maps = {
 
                 this.createTextMarker(distance + "Km");
                 // elabel creation
-                var label = new ELabel(pointA, distance + "nm<br/>" + bearing + "&deg;", "elabel");
-                label.pixelOffset = new GSize(-47,10);
+                var label = new ELabel(pointA, distance + "nm/" + bearing + "&deg;", "elabel", new GSize(-50,10), 100, null, bearing+90);
                 this.gmap.addOverlay(label);
             }
         }

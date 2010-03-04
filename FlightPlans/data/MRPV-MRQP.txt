@@ -7,8 +7,6 @@
 		  "point":"MRPV",
 		  "airport":"yes",
 		  "cordinates":"new GLatLng(9.958029,-84.139670)",
-		  "course":"291",
-		  "distance":"2.7",
 		  "altitude":"3600",
 		  "markerImage":"../images/maps/aa-start.png",
 		  "frequency": "118.3",
@@ -21,8 +19,6 @@
 		{	
 		  "point":"PEDRE",
 		  "cordinates":"new GLatLng(9.975018,-84.182672)",
-		  "course":"256",
-		  "distance":"10.9",
 		  "altitude":"3500",
 		  "markerImage":"../images/maps/aa-marker.png",
 		  "frequency": "118.6"
@@ -30,8 +26,6 @@
 		{	
 		  "point":"BALSA",
 		  "cordinates":"new GLatLng(9.931294,-84.361263)",
-		  "course":"263",
-		  "distance":"9.4",
 		  "altitude":"2500",
 		  "markerImage":"../images/maps/aa-marker.png",
 		  "frequency": "126.8"
@@ -39,8 +33,6 @@
 		{	
 		  "point":"OROTINA",
 		  "cordinates":"new GLatLng(9.911895,-84.519587)",
-		  "course":"217",
-		  "distance":"8.4",
 		  "altitude":"1500",
 		  "markerImage":"../images/maps/aa-marker.png",
 		  "frequency": "123.0"
@@ -48,8 +40,6 @@
 		{	
 		  "point":"RIO TARCOLES",
 		  "cordinates":"new GLatLng(9.798963,-84.604937)",
-		  "course":"187",
-		  "distance":"11",
 		  "altitude":"2000",
 		  "markerImage":"../images/maps/aa-marker.png",
 		  "frequency": "123.0"
@@ -57,8 +47,6 @@
 		{	
 		  "point":"JACO",
 		  "cordinates":"new GLatLng(9.615520,-84.628473)",
-		  "course":"109",
-		  "distance":"31",
 		  "altitude":"1500",
 		  "markerImage":"../images/maps/aa-marker.png",
 		  "frequency": "126.8"

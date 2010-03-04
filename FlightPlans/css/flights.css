@@ -1,3 +1,5 @@
+/* @override http://kuzya.com/AEROTOUR/FlightPlans/css/flights.css */
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables features
  */
@@ -86,3 +88,15 @@ td {
 .mouseOver {
    background-color: #ffffcc;
 }
+
+
+/* Tools Classes */
+.caption {padding: 10px;
+	font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+.classA {background-color: #ffced5;}
+.classB {background-color: #d5e6ff;}
+.classC {background-color: #e3d0ff;}
+.classD {background-color: #c5e9ff;}
+.classE {background-color: #bffdc8;}
+.classG {background-color: #feedde;}

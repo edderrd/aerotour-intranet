@@ -5,32 +5,85 @@
     <link href="../css/main.css" rel="stylesheet" media="screen"/>  
     <script src="../js/eb6.js" type="text/javascript"></script><!-- don't remove -->
     <script src="../js/css_selector.js" type="text/javascript"></script><!-- don't remove -->
+
+<style>
+table.tool {
+  background: #080C0B;
+  color: #fff;
+  padding: 10px;
+  border-left:30px solid #9FA8CC;
+  border-right:30px solid #9FA8CC;
+}
+table.tool td.tdWhite {
+  font-size: 2em;
+  color: #F6FDFA;
+  text-shadow: 0 0 5px #F6FDFA;
+}
+table.tool td.tdBlue {
+  font-size: 2em;
+  color: #4A8EA7;
+  /*text-shadow: 0 0 8px #4A8EA7;*/
+  text-shadow: #EFEFC3 1px 1px 3px, 0 0 8px #4A8EA7;;
+}
+table.tool input[type='text'] {
+  font-size: 1em;
+  color: #327C46;
+  border: 0;
+  background: #080C0B;
+  width: 65px;
+  text-shadow: 0 0 8px #080C0B;
+}
+table.tool input:focus {
+  color: lime;
+  text-shadow: 0 0 8px #080C0B;
+}
+table.tool input.tdPink {
+  font-size: 2em;
+  color: #8B5A82;
+  border: 0;
+  background: #080C0B;
+  width: 130px;
+  text-shadow: 0 0 8px #080C0B;
+}
+table.tool div.divHr {
+  background-color: #713533;
+  display: block;
+  width: 100%;
+  height: 3px;
+}
+li.single {
+  background-color: #EFEFC3 !important;
+}
+</style>
+
   </head>  
   <body>  
     <h1><div class="leftButton" onclick="history.back();return false">Back</div>AEROTOUR INTRANET</h1>  
-    <h2>True Airspeed (TAS or KTAS) Calculator</h2>  
+    <h2>True Airspeed (TAS or KTAS) Calculator (IAS) + (.02 x MSL / 1000)</h2>  
     <ul>  
     	<form id="calcTAS">
-      <li>
-        <table align="center" cellpadding="5" width="600">
+      <li class="single">
+        <table align="center" cellpadding="5" width="600" class="tool corners">
             <tr>
-                <td width="80%">Result can be either Knots or MPH based on consistent entry of the same designation. The formula is (IAS) + (.02 x MSL / 1000).</td>
+                <td class="tdBlue" align="center">NAV TAS</td>
             </tr>
             <tr>
-                <td>Enter&nbsp;&nbsp; <input type="text" name="ias" size="6"> Indicated Airspeed</td>
+                <td class="tdWhite" colspan="2">IAS&rarr;<input type="text" name="ias" maxlength="3" value="000">KTS</td>
             </tr>
             <tr>
-                <td>Enter&nbsp;&nbsp; <input type="text" name="msla" size="6"> MSL Altitude</td>
+                <td class="tdWhite" colspan="2">MSL&rarr;<input type="text" name="msla" maxlength="5" value="00000" style="width:105px;">FT.</td>
             </tr>
             <tr>
-                <td align="center">
-                <input type="button" name="Submit20" value="Calculate True Airspeed" onclick="tairSpeed(this.form)">
-                <input type="reset" name="Reset20" value="Clear True Airspeed Values"></td>
+                <td class="tdOrange" colspan="2"><div class="divHr"></div></td>
+            </tr>
+            <tr>
+             <td class="tdWhite">TAS<input type="text" name="tas" maxlength="3" value="___" readonly="readonly">KTS</td>
+             <td align="left">
+             <input type="button" name="Submit3" class="tdPink" value="ENTER" onclick="tairSpeed(this.form)"><br/>
+             <input type="reset" name="Reset3" class="tdPink" value="CLEAR">
+             </td>
             </tr>
         </table>
-      </li>
-      <li>
-      	<b>Calculated True Airpeed =</b> <input type="text" name="tas" size="6" align="center" readonly>
       </li>
       </form>  
     </ul>  

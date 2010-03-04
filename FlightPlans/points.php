@@ -27,11 +27,11 @@
      
   </head>  
   <body>  
-    <h1><div class="leftButton" onclick="location.href='zone.php'">Back</div>AEROTOUR INTRANET</h1>  
-    <h2>Select destination <span class='chevron'></span> <span id="crumbs"></span></h2>  
+    <h1><div class="leftButton" onclick="location.href='zone.php?type=<?= $_GET['type'] ?>'">Back</div>AEROTOUR INTRANET</h1>  
+    <h2><span id="crumbs"></span> <span class='chevron'></span> Select destination</h2>  
     <ul class="menu">
       <li class="Puntarenas hidden"><a href="plan.php?type=<?= $_GET['type'] ?>&zone=<?= $_GET['zone'] ?>&point=MRQP" class="arrow icon iicon"><em class="ii-flag"></em> Quepos</a></li>
-      <li class="Puntarenas hidden"><a href="plan.php?type=<?= $_GET['type'] ?>&zone=<?= $_GET['zone'] ?>&point=LSUENOS" class="arrow icon iicon"><em class="ii-flag"></em> Los Suenos</a></li>
+      <li class="Puntarenas hidden"><a href="plan.php?type=<?= $_GET['type'] ?>&zone=<?= $_GET['zone'] ?>&point=MRRM" class="arrow icon iicon"><em class="ii-flag"></em> Los Suenos</a></li>
       <li class="Guanacaste hidden"><a href="plan.php?type=<?= $_GET['type'] ?>&zone=<?= $_GET['zone'] ?>&point=MRLB" class="arrow icon iicon"><em class="ii-flag"></em> Liberia</a></li>
       <li class="Guanacaste hidden"><a href="plan.php?type=<?= $_GET['type'] ?>&zone=<?= $_GET['zone'] ?>&point=MRCR" class="arrow icon iicon"><em class="ii-flag"></em> Carillo</a></li>
     </ul>  

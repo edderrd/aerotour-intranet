@@ -509,6 +509,7 @@ fieldset {
 
 
 
+
 /*HELPERS*/
 .status {
   text-align: center;
@@ -531,6 +532,20 @@ fieldset {
 .board {
   font-size: 1.5em;
 }
+.corners {
+  border-top: 1px solid #999;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+/*TOOLS STYLES*/
+table .tool {
+  background-color: #000;
+}
+
+
 
 /*BROWSER SELECTOR*/
 .win.gecko body {

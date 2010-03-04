@@ -13,6 +13,7 @@
     <!--<script src="js/jquery.calculation.js" type="text/javascript"></script> don't remove -->
     <script src="js/css_selector.js" type="text/javascript"></script><!-- don't remove -->
     <script src="js/plan.js" type="text/javascript"></script><!-- don't remove -->
+    <script src="js/FlightCalculator.js" type="text/javascript"></script><!-- don't remove -->
     
 	<script type="text/javascript">/* <![CDATA[ */
 	  $(function(){
@@ -31,18 +32,19 @@
 	      //Get MRPV NOTAM
 			$.ajax({
 				type: "POST",
-				url: "php/proxyNotam.php?url=http://www.easymetar.com/notam_query_result.php",
-				data: {'icao_codes': 'MRPV'},
+				url: "php/proxyNotam.php?url=https://www.notams.jcs.mil/dinsQueryWeb/queryRetrievalMapAction.do",
+				data: {'retrieveLocId': 'MRPV'},
 				success: function(data) {
-					$('#mrpvnotam').html(data);
+					$('#mrpvnotam')
+                                            .html(data);
 				}
 			});
 			
 	      //Get POINT NOTAM
 			$.ajax({
 				type: "POST",
-				url: "php/proxyNotam.php?url=http://www.easymetar.com/notam_query_result.php",
-				data: {'icao_codes': point},
+				url: "php/proxyNotam.php?url=https://www.notams.jcs.mil/dinsQueryWeb/queryRetrievalMapAction.do",
+				data: {'retrieveLocId': point},
 				success: function(data) {
 					$('#' + point + 'notam').html(data);
 				}
@@ -72,6 +74,21 @@
 calculateFuelBurn();
 		  
 	  });
+
+          function calcWindDirVelocity(element, index) {
+            var dirVelocity = FlightCalculator.parseWinDirVelocity(element.val());
+            var trueAS = $("#tas").val();
+            var trueTrack = $("#trueTrack-" + index).val();
+            
+            FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], trueTrack, trueAS);
+
+            $(".windVel").each(function(i, e) {$e = $(e); $e.val(element.val())});
+            $(".heading").each(function(i, e) {$e = $(e); $e.val(FlightCalculator.magHeading)});
+            $(".gsKnots").each(function(i, e) {$e = $(e); $e.val(FlightCalculator.groundSpd)});
+            $(".drift").each(function(i, e) {$e = $(e); $e.val(FlightCalculator.windCA)});
+          }
+
+
 	/* ]]> */
 	</script>
 
@@ -86,8 +103,7 @@ calculateFuelBurn();
 	</style>
 
   </head>  
-  <body>  
-    <h1 class="noPrint"><div class="leftButton" onclick="location.href='points.php'">Back</div>Flight <span id="headPoint">Route</span> in a <span id="headType">Aircraft</span><div class="rightButton" onclick="window.print();return false">Print</div></h1>
+  <b<h1 class="noPrint"><div class="leftButton" onclick="location.href='points.php?type=<?= $_GET['type']; ?>&zone=<?= $_GET['zone']; ?>'">Back</div>Flight <span id="headPoint">Route</span> in a <span id="headType">Aircraft</span><div class="rightButton" onclick="window.print();return false">Print</div></h1>
     <h2>Flight Plan <span class='chevron'></span> <span id="crumbs"></span></h2>  
     <ul>  
       <li class="single">
@@ -116,10 +132,13 @@ calculateFuelBurn();
 		  
 			<?php
 			   require_once dirname(__FILE__) . "/PlanParser.php";
+                           require_once dirname(__FILE__) . "/maps/MapsData.php";
 			
 			   $endPoint = $_GET['point'];
 			   $parser = new PlanParser($endPoint);
 			   $route = $parser->getRoute();
+                           $mapsData = new MapsData($endPoint);
+                           $bearingsDistances = $mapsData->getBearingsDistances();
 			?>
 				
 		  <table class="tableOne" width="100%"  border="1" cellpadding="0" cellspacing="1" > 
@@ -191,12 +210,12 @@ calculateFuelBurn();
 					<td <?= $alterRowClass ?> rowspan="2" align="center"><?= $rowNumber ?></td>
 					<td <?= $rowClass ?> align="left">&nbsp;<strong><?= $row['point'] ?></strong></td>
 					<td <?= $rowClass ?> align="center"><strong class="red"><?= $row['altitude'] ?></strong></td>
-					<td <?= $rowClass ?> align="center"><input class="inputs trueTrack" name="trueTrack"  type="text" size="5" value="<?= $row['course'] ?>" readonly="readonly"  /></td>
-					<td <?= $rowClass ?> align="center"><input onkeyup="windDirVelocity($(this))" name="windVel" class="inputs windVel" type="text" id="windVel1" size="6" value="000/00" /></td>
+					<td <?= $rowClass ?> align="center"><input class="inputs trueTrack" name="trueTrack" id="trueTrack-<?=$rowNumber?>" type="text" size="5" value="<?= $bearingsDistances[$row['point']]['bearing'] ?>" readonly="readonly"  /></td>
+					<td <?= $rowClass ?> align="center"><input onchange="calcWindDirVelocity($(this), <?=$rowNumber?>);" name="windVel" class="inputs windVel" type="text" id="windVel1" size="6" value="000/00" /></td>
 					<td <?= $rowClass ?> align="center"><input name="magVar" type="text" class="inputs magVar" size="4" maxlength="4" value='0' readonly="readonly" /></td>
-					<td <?= $rowClass ?> align="center"><input class="inputs drift" name="drift" type="text" size="5" readonly="readonly"  /></td>
-					<td <?= $rowClass ?> align="center" valign="top"><input class="inputs gsKnots" name="avgSpeed"  type="text" size="3" readonly="readonly" /></td>
-					<td <?= $rowClass ?> align="center"><?= $row['distance'] ?></td>
+					<td <?= $rowClass ?> align="center"><input class="inputs drift" name="drift" id="drift-<?=$rowNumber?>" type="text" size="5" readonly="readonly"  /></td>
+					<td <?= $rowClass ?> align="center" valign="top"><input class="inputs gsKnots" name="avgSpeed" id="avgSpeed-<?= $rowNumber?>"  type="text" size="3" readonly="readonly" /></td>
+					<td <?= $rowClass ?> align="center"><?= $bearingsDistances[$row['point']]['distance'] ?></td>
 					<td <?= $rowClass ?> align="center" valign="top"><input  name="time" type="text" class="highlight totTime" size="3" readonly="readonly" /></td>
 					<td <?= $rowClass ?> >&nbsp;</td>
 					<td <?= $rowClass ?> align="center"><?= $row['frequency'] ?></td>
@@ -207,7 +226,7 @@ calculateFuelBurn();
 					<td <?= $rowClass ?> align="left">&nbsp;<?= $route[$rowNumber]['point'] ?></td>
 					<td <?= $rowClass ?> align="center"></td>
 					<td <?= $rowClass ?> colspan="3" align="left">&nbsp;</td>
-					<td <?= $rowClass ?> align="center" ><input class="highlight heading" name="heading"  type="text" size="4" readonly="readonly" /></td>
+					<td <?= $rowClass ?> align="center" ><input class="highlight heading" name="heading" id="heading-<?=$rowNumber?>"  type="text" size="4" readonly="readonly" /></td>
 					<td <?= $rowClass ?> colspan="3" align="left" valign="top">&nbsp;</td>
 					<td <?= $rowClass ?> >&nbsp;</td>
 					<td <?= $rowClass ?> align="center">&nbsp;</td>
@@ -295,8 +314,8 @@ calculateFuelBurn();
 	    </div>
 	    <div id="tower" title="MRPV Tower">
 			<p style="text-align:center;">
-				<img src="http://www.imn.ac.cr/especial/QNHPAVAS.png" width="360px"/>
-				<img src="http://www.imn.ac.cr/especial/PavasRed.png" width="600px"/>
+				<!-- <img src="http://www.imn.ac.cr/especial/QNHPAVAS.png" width="360px"/> -->
+				<img src="http://www.imn.ac.cr/especial/PavasRed.png" width="100%"/>
 			</p>
 	    </div>
 	    <div id="weather" title="Weather Satelite">

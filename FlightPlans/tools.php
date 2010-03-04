@@ -10,9 +10,9 @@
   <body>  
     <h1><div class="leftButton" onclick="history.back();return false">Back</div>AEROTOUR INTRANET</h1>  
     <h2>Select a Tool</h2>  
-    <ul class="menu">  
+    <ul class="menu">
+    	<li><a href="tools/airspace.html" class="arrow icon iicon"><em class="ii-gear2"></em> Costa Rica Airspace</a></li>
       <li><a href="tools/densityaltitude.html" class="arrow icon iicon"><em class="ii-gear2"></em> Density Altitude Calculator</a></li>
-      <li><a href="tools/groundspeed.html" class="arrow icon iicon"><em class="ii-gear2"></em> Course, Ground Speed, And Wind Correction Angle Calculator Calculator</a></li>
       <li><a href="tools/heading.html" class="arrow icon iicon"><em class="ii-gear2"></em> Heading, Ground Speed, And Wind Correction Angle Calculator</a></li>
       <li><a href="tools/runwaycrosswinds.html" class="arrow icon iicon"><em class="ii-gear2"></em> Runway Crosswinds Calculator</a></li>
       <li><a href="tools/tas.html" class="arrow icon iicon"><em class="ii-gear2"></em> True Airspeed (TAS or KTAS) Calculator</a></li>

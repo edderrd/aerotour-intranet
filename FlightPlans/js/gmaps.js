@@ -44,12 +44,6 @@ function formatTabOne (input) {
 function formatTabTwo (input) {
 	var html 	 = "<div class=\"bubble\">";
 	html		+= "<p>"
-	if(input.course != null) {
-		html 	+= "Track to next point: <b>" + input.course + "&#186;</b><br />";
-	}		
-	if(input.distance != null) {
-		html 	+= "Distance to next point: <b>" + input.distance + "nm.</b><br />";
-	}
 	if(input.runway != null) {
 		html 	+= "Runway: <b>" + input.runway + "</b><br />";
 	}	
