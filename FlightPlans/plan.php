@@ -103,8 +103,7 @@ calculateFuelBurn();
 	</style>
 
   </head>  
-  <body>  
-    <h1 class="noPrint"><div class="leftButton" onclick="location.href='points.php'">Back</div>Flight <span id="headPoint">Route</span> in a <span id="headType">Aircraft</span><div class="rightButton" onclick="window.print();return false">Print</div></h1>
+  <b<h1 class="noPrint"><div class="leftButton" onclick="location.href='points.php?type=<?= $_GET['type']; ?>&zone=<?= $_GET['zone']; ?>'">Back</div>Flight <span id="headPoint">Route</span> in a <span id="headType">Aircraft</span><div class="rightButton" onclick="window.print();return false">Print</div></h1>
     <h2>Flight Plan <span class='chevron'></span> <span id="crumbs"></span></h2>  
     <ul>  
       <li class="single">
@@ -315,8 +314,8 @@ calculateFuelBurn();
 	    </div>
 	    <div id="tower" title="MRPV Tower">
 			<p style="text-align:center;">
-				<img src="http://www.imn.ac.cr/especial/QNHPAVAS.png" width="360px"/>
-				<img src="http://www.imn.ac.cr/especial/PavasRed.png" width="600px"/>
+				<!-- <img src="http://www.imn.ac.cr/especial/QNHPAVAS.png" width="360px"/> -->
+				<img src="http://www.imn.ac.cr/especial/PavasRed.png" width="100%"/>
 			</p>
 	    </div>
 	    <div id="weather" title="Weather Satelite">

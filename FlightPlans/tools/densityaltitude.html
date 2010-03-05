@@ -5,32 +5,89 @@
     <link href="../css/main.css" rel="stylesheet" media="screen"/>  
     <script src="../js/eb6.js" type="text/javascript"></script><!-- don't remove -->
     <script src="../js/css_selector.js" type="text/javascript"></script><!-- don't remove -->
+
+<style>
+table.tool {
+  background: #080C0B;
+  color: #fff;
+  padding: 10px;
+  border-left:30px solid #9FA8CC;
+  border-right:30px solid #9FA8CC;
+}
+table.tool td.tdWhite {
+  font-size: 2em;
+  color: #F6FDFA;
+  text-shadow: 0 0 5px #F6FDFA;
+}
+table.tool td.tdBlue {
+  font-size: 2em;
+  color: #4A8EA7;
+  /*text-shadow: 0 0 8px #4A8EA7;*/
+  text-shadow: #EFEFC3 1px 1px 3px, 0 0 8px #4A8EA7;;
+}
+table.tool input[type='text'] {
+  font-size: 1em;
+  color: #327C46;
+  border: 0;
+  background: #080C0B;
+  width: 85px;
+  text-shadow: 0 0 8px #080C0B;
+}
+table.tool input:focus {
+  color: lime;
+  text-shadow: 0 0 8px #080C0B;
+}
+table.tool input.tdPink {
+  font-size: 2em;
+  color: #8B5A82;
+  border: 0;
+  background: #080C0B;
+  width: 130px;
+  text-shadow: 0 0 8px #080C0B;
+}
+table.tool div.divHr {
+  background-color: #713533;
+  display: block;
+  width: 100%;
+  height: 3px;
+}
+li.single {
+  background-color: #EFEFC3 !important;
+}
+</style>    
+    
   </head>  
   <body>  
     <h1><div class="leftButton" onclick="history.back();return false">Back</div>AEROTOUR INTRANET</h1>  
     <h2>Density Altitude Calculator</h2>  
     <ul>  
     	<form id="denAlt">
-      <li>
-        <table align="center" cellpadding="5" width="600">
+      <li class="single">
+        <table align="center" cellpadding="5" width="600" class="tool corners">
             <tr>
-                <td>Enter&nbsp;&nbsp; <input type="text" name="PA" size="6"> Pressure Altitude (Ft)</td>
+                <td class="tdBlue" align="center">NAV DA</td>
             </tr>
             <tr>
-                <td>Enter&nbsp;&nbsp; <input type="text" name="Temp" size="6"> Actual Temperature 
-                <input type="radio" name="Radio2" value="F" checked="checked">F&#176; 
-                <input type="radio" name="Radio2" value="C">C&#176;</td>
+                <td class="tdWhite" colspan="2">PA&rarr;<input type="text" name="PA" maxlength="5" value="0000">FT.</td>
             </tr>
             <tr>
-                <td align="center">
-                <input type="button" name="Submit8" value="Calculate Density Altitude" onclick="densityAltitude(this.form)">
-                <input type="reset" name="Reset8" value="Clear Density Altitude Values">
+                <td class="tdWhite" colspan="2">TEMP&rarr;<input type="text" name="Temp" maxlength="3" value="25" style="width:63px;"> 
+                <input type="radio" name="Radio2" value="C" checked="checked">C&deg;
+                <input type="radio" name="Radio2" value="F">F&deg;</td>
+            </tr>
+            <tr>
+                <td class="tdOrange" colspan="2"><div class="divHr"></div></td>
+            </tr>
+            <tr>
+            	 <td class="tdWhite">
+            	 DA<input type="text" name="DA" maxlength="5" value="_____" readonly="readonly" style="width:100px;">FT.
+            	 </td>
+                <td align="left">
+                <input type="button" name="Submit8" class="tdPink" value="ENTER" onclick="densityAltitude(this.form)"><br/>
+                <input type="reset" name="Reset8" class="tdPink" value="CLEAR">
                 </td>
             </tr>
         </table>
-      </li>
-      <li>
-      	<b>Calculated Density Altitude =</b> <input type="text" name="DA" size="7" readonly>
       </li>
       </form> 
     </ul>  

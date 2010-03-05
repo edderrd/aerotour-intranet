@@ -86,7 +86,7 @@ class PlanParser
      */
     public function getTotalTime()
     {
-        $rv = "120";
+        $rv = "60";
         return $rv;
     }
 

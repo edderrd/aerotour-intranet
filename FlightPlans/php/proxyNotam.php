@@ -25,7 +25,11 @@ if ($_GET['url']) {
 	curl_setopt ($session, CURLOPT_POST, true);
 	curl_setopt ($session, CURLOPT_POSTFIELDS, $postvars);
         curl_setopt($session,CURLOPT_REFERER,'https://www.notams.jcs.mil/dinsQueryWeb/');
+<<<<<<< HEAD:FlightPlans/php/proxyNotam.php
         curl_setopt( $session, CURLOPT_FOLLOWLOCATION, true );
+=======
+        curl_setopt( $session, CURLOPT_FOLLOWLOCATION, false );
+>>>>>>> 1db6fdb66bf09b55d5c32ab3190d0a2808848e59:FlightPlans/php/proxyNotam.php
 }
 
 // Don't return HTTP headers. Do return the contents of the call
@@ -48,5 +52,13 @@ $filtered = implode("<br>", $filtered[0]);
 $filtered = str_ireplace("<pre>", "<span>", $filtered);
 $filtered = str_ireplace("</pre>", "</span>", $filtered);
 
+<<<<<<< HEAD:FlightPlans/php/proxyNotam.php
 echo $filtered;
 curl_close($session);
+=======
+if (empty($filtered))
+	echo "<p style='text-align:center'>No data available</p>";
+else
+	echo $filtered;
+curl_close($session);
+>>>>>>> 1db6fdb66bf09b55d5c32ab3190d0a2808848e59:FlightPlans/php/proxyNotam.php

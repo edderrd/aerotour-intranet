@@ -158,8 +158,8 @@ Maps = {
 
         var marker = new GMarker(input.cordinates, this.makeIcon(input.markerImage) );
 
-        var tabs_array  = [ new GInfoWindowTab("Checkpoint", this.formatTabOne(input) ),
-                            new GInfoWindowTab("Information", this.formatTabTwo(input) ) ];
+        var tabs_array  = [ new GInfoWindowTab(" Checkpoint ", this.formatTabOne(input) ),
+                            new GInfoWindowTab(" Information ", this.formatTabTwo(input) ) ];
 
         GEvent.addListener(marker, "click", function() {
                 marker.openInfoWindowTabsHtml(tabs_array);
@@ -294,7 +294,7 @@ Maps = {
 
                 this.createTextMarker(distance + "Km");
                 // elabel creation
-                var label = new ELabel(pointA, distance + "nm<br/>" + bearing + "&deg;", "elabel", new GSize(-47,10), 90, null, bearing+90);
+                var label = new ELabel(pointA, distance + "nm/" + bearing + "&deg;", "elabel", new GSize(-50,10), 100, null, bearing+90);
                 this.gmap.addOverlay(label);
             }
         }

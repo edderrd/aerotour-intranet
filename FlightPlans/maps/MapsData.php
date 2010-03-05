@@ -120,7 +120,7 @@ class MapsData
         $dist *= 1.609344;
         $dist = $dist / 1.852;
 
-        return round($dist, 1);
+        return round($dist, 0); //0 represents decimal value. 1 for one value after point (.)
     }
 
     /**

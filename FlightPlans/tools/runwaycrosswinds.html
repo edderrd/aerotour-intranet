@@ -5,41 +5,88 @@
     <link href="../css/main.css" rel="stylesheet" media="screen"/>  
     <script src="../js/eb6.js" type="text/javascript"></script><!-- don't remove -->
     <script src="../js/css_selector.js" type="text/javascript"></script><!-- don't remove -->
+
+<style>
+table.tool {
+  background: #080C0B;
+  color: #fff;
+  padding: 10px;
+  border-left:30px solid #9FA8CC;
+  border-right:30px solid #9FA8CC;
+}
+table.tool td.tdWhite {
+  font-size: 2em;
+  color: #F6FDFA;
+  text-shadow: 0 0 5px #F6FDFA;
+}
+table.tool td.tdBlue {
+  font-size: 2em;
+  color: #4A8EA7;
+  /*text-shadow: 0 0 8px #4A8EA7;*/
+  text-shadow: #EFEFC3 1px 1px 3px, 0 0 8px #4A8EA7;;
+}
+table.tool input[type='text'] {
+  font-size: 1em;
+  color: #327C46;
+  border: 0;
+  background: #080C0B;
+  width: 63px;
+  text-shadow: 0 0 8px #080C0B;
+}
+table.tool input:focus {
+  color: lime;
+  text-shadow: 0 0 8px #080C0B;
+}
+table.tool input.tdPink {
+  font-size: 2em;
+  color: #8B5A82;
+  border: 0;
+  background: #080C0B;
+  width: 130px;
+  text-shadow: 0 0 8px #080C0B;
+}
+table.tool div.divHr {
+  background-color: #713533;
+  display: block;
+  width: 100%;
+  height: 3px;
+}
+li.single {
+  background-color: #EFEFC3 !important;
+}
+</style>    
+    
   </head>  
   <body>  
     <h1><div class="leftButton" onclick="history.back();return false">Back</div>AEROTOUR INTRANET</h1>  
     <h2>Runway Crosswinds Calculator</h2>  
     <ul> 
     	<form id="Rway"> 
-      <li>
-        <table align="center" cellpadding="5" width="600">
+      <li class="single">
+        <table align="center" cellpadding="5" width="600" class="tool corners">
             <tr>
-                <td>Enter&nbsp;&nbsp; <input size="3" name="runwayd"> &nbsp;Runway Compass Heading</td>
+                <td class="tdBlue" align="center">NAV CRSWND KTS</td>
             </tr>
             <tr>
-                <td>Enter&nbsp;&nbsp; <input size="3" name="wdirection"> &nbsp;Wind (From) Compass Direction</td>
+                <td class="tdWhite" colspan="2">RNWHDN&rarr;<input type="text" name="runwayd" maxlength="3" value="000">&deg;</td>
             </tr>
             <tr>
-                <td>Enter&nbsp;&nbsp; <input size="3" name="wspeed"> &nbsp;Wind Speed In Knots or MPH</td>
+                <td class="tdWhite" colspan="2">WND&rarr;<input type="text" name="wdirection" maxlength="3" value="000">&deg;/SPD&rarr;<input type="text" name="wspeed" maxlength="2" value="00">KTS</td>
             </tr>
             <tr>
-                <td align="middle">
-                <input onclick="compute(this.form)" type="button" value="Calculate Crosswind">
-                <input type="reset" name="Reset9" value="Clear Crosswind Values"></td>
+                <td class="tdOrange" colspan="2"><div class="divHr"></div></td>
+            </tr>
+            <tr>
+             <td class="tdWhite">
+   	        CRSWND<input type="text" name="cwresult" readonly="readonly" maxlength="3" value="___">KTS<br/>
+   	        FROM<input type="text" name="d"  maxlength="5" value="AHEAD" readonly="readonly" style="width:120px;"><br/>
+   	        GS<input type="text" name="cwresultloss" readonly="readonly" maxlength="3" value="___">KTS<input type="text" name="g" value="LOSS" readonly="readonly" style="width:85px;">
+				 </td>
+             <td align="left">
+             <input type="button" onclick="compute(this.form)" class="tdPink" value="ENTER"><br/>
+             <input type="reset" name="Reset9" class="tdPink" value="CLEAR"></td>
             </tr>
         </table>
-      </li>
-      <li>
-      	<table>
-            <tr>
-                <td><b>Calculated&nbsp;&nbsp;</b>
-                <input size="3" name="cwresult" readonly> &nbsp;Crosswind In Knots or MPH From <input size="5" name="d" value="ahead"></td>
-            </tr>
-            <tr>
-                <td><b>Calculated&nbsp;&nbsp;</b>
-                <input size="3" name="cwresultloss" readonly> &nbsp;Forward Ground Speed <input size="5" name="g" value="loss"> In Knots or MPH</td>
-            </tr>
-          </table>
       </li>
       </form> 
     </ul>  
