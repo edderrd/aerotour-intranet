@@ -79,6 +79,7 @@ calculateFuelBurn();
               var dirVelocity = FlightCalculator.parseWinDirVelocity(element.val());
               var trueAS = $("#tas").val();
               var trueTrack = $("#trueTrack-" + index).val();
+              var totAvgSpeed = 0;
 
               FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], trueTrack, trueAS);
             
@@ -86,28 +87,32 @@ calculateFuelBurn();
                   $(".windVel").each(function(i, e) {$e = $(e); $e.val(element.val())});
 
                   $(".heading").each(function(i, e) {
-                      $e = $(e);
+                      var $e = $(e);
 
                       FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + i).val(), trueAS);
                       $e.val(FlightCalculator.magHeading);
                   });
 
                   $(".gsKnots").each(function(i, e) {
-                      $e = $(e);
+                      var $e = $(e);
                       FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + i).val(), trueAS);
                       $e.val(FlightCalculator.groundSpd);
-                      $e.val();
+
+                      totAvgSpeed = totAvgSpeed + parseInt($e.val());
+
                       var time = FlightCalculator.getTime($("#distance-" + i).text(), $e.val());
                       $("#totTime-" + i).val(time);
+
                   });
 
                   $(".drift").each(function(i, e) {
-                      $e = $(e);
+                      var $e = $(e);
                       FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + i).val(), trueAS);
                       $e.val(FlightCalculator.windCA);
                       
                   });
               } else {
+                  // calculate for a sigle row
                   dirVelocity = FlightCalculator.parseWinDirVelocity(element.val());
                   FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + index).val(), trueAS);
                   $("#heading-" + index).val(FlightCalculator.magHeading);
@@ -116,6 +121,11 @@ calculateFuelBurn();
                   var time = FlightCalculator.getTime($("#distance-" + index).text(), $("#avgSpeed-" + index).val());
                   $("#totTime-" + index).val(time);
               }
+
+              //totals
+              $("#averageSpeed").val(totAvgSpeed / $(".gsKnots").length);
+
+
           }
 
 
@@ -265,9 +275,9 @@ calculateFuelBurn();
              <?php endforeach; ?>
                 <tr>
                   <th colspan="7" align="right">Totals&nbsp;</th>
-                  <td align="center"><input name="averageSpeed" class="highlightGreen" type="text" id="averageSpeed" size="3" readonly="readonly" value="<?= $parser->getAverageSpeed() ?>" /></td>
-                  <td align="center"><input name="totalDistance" class="highlightGreen" type="text" id="totalDistance" size="4" readonly="readonly" value="<?= $parser->getTotalDistance() ?>" /></td>
-                  <td align="center"><input name="totalTime" class="highlightGreen"  type="text" id="totalTime" size="4" readonly="readonly" value="<?= $parser->getTotalTime() ?>" /></td>
+                  <td align="center"><input name="averageSpeed" class="highlightGreen" type="text" id="averageSpeed" size="3" readonly="readonly" value="" /></td>
+                  <td align="center"><input name="totalDistance" class="highlightGreen" type="text" id="totalDistance" size="4" readonly="readonly" value="<?= $mapsData->getTotalDistance() ?>" /></td>
+                  <td align="center"><input name="totalTime" class="highlightGreen"  type="text" id="totalTime" size="4" readonly="readonly" value="" /></td>
                   <th colspan="4">&nbsp;</th>
                 </tr>
               </table>

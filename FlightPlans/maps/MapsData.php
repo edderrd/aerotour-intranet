@@ -6,6 +6,7 @@ class MapsData
     protected $_endPoint = "";
     protected $_startPoint = "MRPV";
     protected $_cordinates = array();
+    protected $_bearingsDistances = array();
 
     public function __construct($point)
     {
@@ -147,6 +148,20 @@ class MapsData
                     $rv[$route]['distance'] = $this->_getDistance($pointA, $pointB);
                 }
                 $index++;
+            }
+        }
+        $this->_bearingsDistances = $rv;
+
+        return $this->_bearingsDistances;
+    }
+
+    public function getTotalDistance()
+    {
+        $rv = 0;
+
+        if ( !empty($this->_bearingsDistances) ) {
+            foreach($this->_bearingsDistances as $route) {
+                $rv = $rv + $route['distance'];
             }
         }
 
