@@ -80,6 +80,7 @@ calculateFuelBurn();
               var trueAS = $("#tas").val();
               var trueTrack = $("#trueTrack-" + index).val();
               var totAvgSpeed = 0;
+              var totTime = 0;
 
               FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], trueTrack, trueAS);
             
@@ -97,8 +98,6 @@ calculateFuelBurn();
                       var $e = $(e);
                       FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + i).val(), trueAS);
                       $e.val(FlightCalculator.groundSpd);
-
-                      totAvgSpeed = totAvgSpeed + parseInt($e.val());
 
                       var time = FlightCalculator.getTime($("#distance-" + i).text(), $e.val());
                       $("#totTime-" + i).val(time);
@@ -122,9 +121,12 @@ calculateFuelBurn();
                   $("#totTime-" + index).val(time);
               }
 
-              //totals
+              //avg distance
+              $(".gsKnots").each(function(i, e) {totAvgSpeed = totAvgSpeed + parseInt($(e).val())});
               $("#averageSpeed").val(totAvgSpeed / $(".gsKnots").length);
-
+              // total time
+              $(".totTime").each(function(i, e) {totTime = totTime + parseInt($(e).val())});
+              $("#totalTime").val(totTime);
 
           }
 
