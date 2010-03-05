@@ -22,5 +22,9 @@ FlightCalculator = {
         var dirVelocity = winDirVelocity.split("/");
         
         return dirVelocity;
-    }    
+    },
+
+    getTime: function(distance, speed) {
+        return Math.round((distance / speed) * 60, 1);
+    }
 }

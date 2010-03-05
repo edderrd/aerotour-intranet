@@ -79,28 +79,42 @@ calculateFuelBurn();
               var dirVelocity = FlightCalculator.parseWinDirVelocity(element.val());
               var trueAS = $("#tas").val();
               var trueTrack = $("#trueTrack-" + index).val();
-            
+
               FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], trueTrack, trueAS);
             
               if ( index == 0 ) {
                   $(".windVel").each(function(i, e) {$e = $(e); $e.val(element.val())});
+
                   $(".heading").each(function(i, e) {
                       $e = $(e);
+
                       FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + i).val(), trueAS);
                       $e.val(FlightCalculator.magHeading);
                   });
+
                   $(".gsKnots").each(function(i, e) {
                       $e = $(e);
                       FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + i).val(), trueAS);
                       $e.val(FlightCalculator.groundSpd);
+                      $e.val();
+                      var time = FlightCalculator.getTime($("#distance-" + i).text(), $e.val());
+                      $("#totTime-" + i).val(time);
                   });
+
                   $(".drift").each(function(i, e) {
                       $e = $(e);
                       FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + i).val(), trueAS);
                       $e.val(FlightCalculator.windCA);
+                      
                   });
               } else {
-
+                  dirVelocity = FlightCalculator.parseWinDirVelocity(element.val());
+                  FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + index).val(), trueAS);
+                  $("#heading-" + index).val(FlightCalculator.magHeading);
+                  $("#drift-" + index).val(FlightCalculator.windCA);
+                  $("#avgSpeed-" + index).val(FlightCalculator.groundSpd);
+                  var time = FlightCalculator.getTime($("#distance-" + index).text(), $("#avgSpeed-" + index).val());
+                  $("#totTime-" + index).val(time);
               }
           }
 
@@ -119,7 +133,7 @@ calculateFuelBurn();
 	</style>
 
   </head>  
-  <b<h1 class="noPrint"><div class="leftButton" onclick="location.href='points.php?type=<?= $_GET['type']; ?>&zone=<?= $_GET['zone']; ?>'">Back</div>Flight <span id="headPoint">Route</span> in a <span id="headType">Aircraft</span><div class="rightButton" onclick="window.print();return false">Print</div></h1>
+  <h1 class="noPrint"><div class="leftButton" onclick="location.href='points.php?type=<?= $_GET['type']; ?>&zone=<?= $_GET['zone']; ?>'">Back</div>Flight <span id="headPoint">Route</span> in a <span id="headType">Aircraft</span><div class="rightButton" onclick="window.print();return false">Print</div></h1>
     <h2>Flight Plan <span class='chevron'></span> <span id="crumbs"></span></h2>  
     <ul>  
       <li class="single">
@@ -227,12 +241,12 @@ calculateFuelBurn();
 					<td <?= $rowClass ?> align="left">&nbsp;<strong><?= $row['point'] ?></strong></td>
 					<td <?= $rowClass ?> align="center"><strong class="red"><?= $row['altitude'] ?></strong></td>
 					<td <?= $rowClass ?> align="center"><input class="inputs trueTrack" name="trueTrack" id="trueTrack-<?=$number?>" type="text" size="5" value="<?= $bearingsDistances[$row['point']]['bearing'] ?>" readonly="readonly"  /></td>
-					<td <?= $rowClass ?> align="center"><input onchange="calcWindDirVelocity($(this), <?=$number?>);" name="windVel" class="inputs windVel" type="text" id="windVel1" size="6" value="000/00" /></td>
+					<td <?= $rowClass ?> align="center"><input onchange="calcWindDirVelocity($(this), <?=$number?>);" name="windVel" class="inputs windVel" type="text" id="windVel-<?= $number?>" size="6" value="000/00" /></td>
 					<td <?= $rowClass ?> align="center"><input name="magVar" type="text" class="inputs magVar" size="4" maxlength="4" value='0' readonly="readonly" /></td>
 					<td <?= $rowClass ?> align="center"><input class="inputs drift" name="drift" id="drift-<?=$number?>" type="text" size="5" readonly="readonly"  /></td>
 					<td <?= $rowClass ?> align="center" valign="top"><input class="inputs gsKnots" name="avgSpeed" id="avgSpeed-<?= $number?>"  type="text" size="3" readonly="readonly" /></td>
-					<td <?= $rowClass ?> align="center"><?= $bearingsDistances[$row['point']]['distance'] ?></td>
-					<td <?= $rowClass ?> align="center" valign="top"><input  name="time" type="text" class="highlight totTime" size="3" readonly="readonly" /></td>
+					<td <?= $rowClass ?> align="center" id="distance-<?=$number?>" ><?= $bearingsDistances[$row['point']]['distance'] ?></td>
+					<td <?= $rowClass ?> align="center" valign="top"><input  name="time" type="text" class="highlight totTime" id="totTime-<?=$number?>" size="3" readonly="readonly" /></td>
 					<td <?= $rowClass ?> >&nbsp;</td>
 					<td <?= $rowClass ?> align="center"><?= $row['frequency'] ?></td>
 					<td <?= $rowClass ?> align="center">&nbsp;</td>
