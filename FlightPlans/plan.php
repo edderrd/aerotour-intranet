@@ -85,31 +85,27 @@ calculateFuelBurn();
               FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], trueTrack, trueAS);
             
               if ( index == 0 ) {
-                  $(".windVel").each(function(i, e) {$e = $(e); $e.val(element.val())});
+                  var totalItems = $(".windVel").length;
+                  var windVels = $(".windVel");
+                  var headings = $(".heading");
+                  var gsKnots = $(".gsKnots");
+                  var drifts = $(".drift");
 
-                  $(".heading").each(function(i, e) {
-                      var $e = $(e);
+                  for (var j = 0; j < totalItems; j++) {
+                      var $windVel = $(windVels[j]);
+                      var $heading = $(headings[j]);
+                      var $gsKnot = $(gsKnots[j]);
+                      var $drift = $(drifts[j]);
+                    
+                      FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + j).val(), trueAS);
+                      var time = FlightCalculator.getTime($("#distance-" + j).text(), FlightCalculator.groundSpd);
 
-                      FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + i).val(), trueAS);
-                      $e.val(FlightCalculator.magHeading);
-                  });
-
-                  $(".gsKnots").each(function(i, e) {
-                      var $e = $(e);
-                      FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + i).val(), trueAS);
-                      $e.val(FlightCalculator.groundSpd);
-
-                      var time = FlightCalculator.getTime($("#distance-" + i).text(), $e.val());
-                      $("#totTime-" + i).val(time);
-
-                  });
-
-                  $(".drift").each(function(i, e) {
-                      var $e = $(e);
-                      FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + i).val(), trueAS);
-                      $e.val(FlightCalculator.windCA);
-                      
-                  });
+                      $windVel.val(element.val());
+                      $heading.val(FlightCalculator.magHeading);
+                      $gsKnot.val(FlightCalculator.groundSpd);
+                      $("#totTime-" + j).val(time);
+                      $gsKnot.val(FlightCalculator.windCA);
+                  }
               } else {
                   // calculate for a sigle row
                   dirVelocity = FlightCalculator.parseWinDirVelocity(element.val());
