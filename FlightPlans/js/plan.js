@@ -5,82 +5,70 @@ function magVarChange(parentElement) {
 	});
 }
 
-//Sets the value of all wind direction and velocity
-function setWindDirVelocity() {
-
-}
-
-//Calculates Drift
-function calculateDrift() {
-
-}
-
-//Calculates Magnetic Heading
-function calculateMagHdn() {
-
-}
-
-//Calculates Ground Speed
-function calculateGroundSpeed() {
-
-}
-
-//Calculates travel Time for each point in min
-function calculateTime() {
-
-}
-
-//Calculates Total Ground Speed, displayed as average.
-function calculateTotalGs() {
-   var calculatedAvgSpeed = 0;
-   var objRegExp = '\s+';
-   $("input[name^='avgSpeed']").each ( function() {
-    calculatedAvgSpeed += parseFloat ( $(this).val().replace(/\s/g,'').replace(',','.'));
-   });
-   $("#averageSpeed").val(calculatedAvgSpeed + " gs");
-}
-
-//Calculates Total Time to trave, displayed in minutes.
-function calculateTotalTime() {
-   var calculatedTotalTime = 0;
-   var objRegExp = '\s+';
-   $(".totTime").each ( function() {
-    calculatedTotalTime += parseFloat ( $(this).val().replace(/\s/g,'').replace(',','.'));
-   });
-   $("#totalTime").val(calculatedTotalTime);
-   $("#enroute").val(calculatedTotalTime);
-calculateFuelBurn();
-}
 
 //Calculates Fuel Required.
 function calculateFuelBurn() {
    var calculatedFuelSum = 14;
    var objRegExp = '\s+';
    $(".fuelSum").each ( function() {
-    calculatedFuelSum += parseFloat ( $(this).val().replace(/\s/g,'').replace(',','.'));
+        calculatedFuelSum += parseFloat ( $(this).val().replace(/\s/g,'').replace(',','.'));
    });
    calculatedFuel = Math.round(calculatedFuelSum * parseFloat($("#fuelcons").val()) / 60);
    $("#totalFuel").val(calculatedFuel + " gal");
    $("#txtFuel").val(calculatedFuel + " gal");
 }
 
+/**
+ * Using wind direction and velocity calculate ground speed, time, fuel, magnetic heading
+ */
+function calcWindDirVelocity(element, index) {
+    var dirVelocity = FlightCalculator.parseWinDirVelocity(element.val());
+    var trueAS = $("#tas").val();
+    var trueTrack = $("#trueTrack-" + index).val();
+    var totAvgSpeed = 0;
+    var totTime = 0;
 
-//by setting windDirVelocity calculate GS, Correstion Angle,  Magnetic Heading
-function windDirVelocity() {
-  wd = (Math.PI/180)*$(".windVal").val();
-  hd = (Math.PI/180)*$(".trueTrack").val();
-//  $(".gsKnots").val() = Math.round(Math.sqrt(Math.pow(calcGndSpdCrsWca.windSpd.value, 2) + 
-//                              Math.pow($("#tas").val(), 2)- 2 * calcGndSpdCrsWca.windSpd.value *
-  $(".gsKnots").val() = Math.round(Math.sqrt(Math.pow(20, 2) + 
-                              Math.pow($("#tas").val(), 2)- 2 * 20 *
-                              $("#tas").val() * Math.cos(hd-wd)));
-//  wca = Math.atan2(calcGndSpdCrsWca.windSpd.value * Math.sin(hd-wd),
-//                               $("#tas").val()-calcGndSpdCrsWca.windSpd.value *
-  wca = Math.atan2(20 * Math.sin(hd-wd),
-                               $("#tas").val()-20 * 
-                               Math.cos(hd-wd));
-  $(".drift").val() = Math.round((180/Math.PI) * wca);
-  crs = (hd + wca) % (2 * Math.PI);
-  $(".heading").val() = Math.round((180/Math.PI) * crs);
+    FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], trueTrack, trueAS);
+
+    if ( index == 0 ) {
+        var totalItems = $(".windVel").length;
+        var windVels = $(".windVel");
+        var headings = $(".heading");
+        var gsKnots = $(".gsKnots");
+        var drifts = $(".drift");
+
+        for (var j = 0; j < totalItems; j++) {
+            var $windVel = $(windVels[j]);
+            var $heading = $(headings[j]);
+            var $gsKnot = $(gsKnots[j]);
+            var $drift = $(drifts[j]);
+
+            FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + j).val(), trueAS);
+            var time = FlightCalculator.getTime($("#distance-" + j).text(), FlightCalculator.groundSpd);
+
+            $windVel.val(element.val());
+            $heading.val(FlightCalculator.magHeading);
+            $gsKnot.val(FlightCalculator.groundSpd);
+            $("#totTime-" + j).val(time);
+            $drift.val(FlightCalculator.windCA);
+        }
+    } else {
+        // calculate for a sigle row
+        dirVelocity = FlightCalculator.parseWinDirVelocity(element.val());
+        FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + index).val(), trueAS);
+        $("#heading-" + index).val(FlightCalculator.magHeading);
+        $("#drift-" + index).val(FlightCalculator.windCA);
+        $("#avgSpeed-" + index).val(FlightCalculator.groundSpd);
+        var time = FlightCalculator.getTime($("#distance-" + index).text(), $("#avgSpeed-" + index).val());
+        $("#totTime-" + index).val(time);
+    }
+
+    //avg distance
+    $(".gsKnots").each(function(i, e) {totAvgSpeed = totAvgSpeed + parseInt($(e).val())});
+    $("#averageSpeed").val(totAvgSpeed / $(".gsKnots").length);
+    // total time
+    $(".totTime").each(function(i, e) {totTime = totTime + parseInt($(e).val())});
+    $("#totalTime").val(totTime);
+    $("#enroute").val(totTime);
+    calculateFuelBurn();
 }
-

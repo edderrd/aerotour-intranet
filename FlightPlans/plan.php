@@ -71,60 +71,8 @@
 
 	      //Make Tabs
 	      $(".tabbar").iTabs();
-calculateFuelBurn();
 		  
 	  });
-
-          function calcWindDirVelocity(element, index) {
-              var dirVelocity = FlightCalculator.parseWinDirVelocity(element.val());
-              var trueAS = $("#tas").val();
-              var trueTrack = $("#trueTrack-" + index).val();
-              var totAvgSpeed = 0;
-              var totTime = 0;
-
-              FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], trueTrack, trueAS);
-            
-              if ( index == 0 ) {
-                  var totalItems = $(".windVel").length;
-                  var windVels = $(".windVel");
-                  var headings = $(".heading");
-                  var gsKnots = $(".gsKnots");
-                  var drifts = $(".drift");
-
-                  for (var j = 0; j < totalItems; j++) {
-                      var $windVel = $(windVels[j]);
-                      var $heading = $(headings[j]);
-                      var $gsKnot = $(gsKnots[j]);
-                      var $drift = $(drifts[j]);
-                    
-                      FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + j).val(), trueAS);
-                      var time = FlightCalculator.getTime($("#distance-" + j).text(), FlightCalculator.groundSpd);
-
-                      $windVel.val(element.val());
-                      $heading.val(FlightCalculator.magHeading);
-                      $gsKnot.val(FlightCalculator.groundSpd);
-                      $("#totTime-" + j).val(time);
-                      $gsKnot.val(FlightCalculator.windCA);
-                  }
-              } else {
-                  // calculate for a sigle row
-                  dirVelocity = FlightCalculator.parseWinDirVelocity(element.val());
-                  FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + index).val(), trueAS);
-                  $("#heading-" + index).val(FlightCalculator.magHeading);
-                  $("#drift-" + index).val(FlightCalculator.windCA);
-                  $("#avgSpeed-" + index).val(FlightCalculator.groundSpd);
-                  var time = FlightCalculator.getTime($("#distance-" + index).text(), $("#avgSpeed-" + index).val());
-                  $("#totTime-" + index).val(time);
-              }
-
-              //avg distance
-              $(".gsKnots").each(function(i, e) {totAvgSpeed = totAvgSpeed + parseInt($(e).val())});
-              $("#averageSpeed").val(totAvgSpeed / $(".gsKnots").length);
-              // total time
-              $(".totTime").each(function(i, e) {totTime = totTime + parseInt($(e).val())});
-              $("#totalTime").val(totTime);
-
-          }
 
 
 	/* ]]> */
@@ -252,9 +200,9 @@ calculateFuelBurn();
 					<td <?= $rowClass ?> align="center"><input onchange="calcWindDirVelocity($(this), <?=$number?>);" name="windVel" class="inputs windVel" type="text" id="windVel-<?= $number?>" size="6" value="000/00" /></td>
 					<td <?= $rowClass ?> align="center"><input name="magVar" type="text" class="inputs magVar" size="4" maxlength="4" value='0' readonly="readonly" /></td>
 					<td <?= $rowClass ?> align="center"><input class="inputs drift" name="drift" id="drift-<?=$number?>" type="text" size="5" readonly="readonly"  /></td>
-					<td <?= $rowClass ?> align="center" valign="top"><input class="inputs gsKnots" name="avgSpeed" id="avgSpeed-<?= $number?>"  type="text" size="3" readonly="readonly" /></td>
+					<td <?= $rowClass ?> align="center" valign="top"><?php if ($number < count($route)-1 ): ?><input class="inputs gsKnots" name="avgSpeed" id="avgSpeed-<?= $number?>"  type="text" size="3" readonly="readonly" /><?php endif; ?></td>
 					<td <?= $rowClass ?> align="center" id="distance-<?=$number?>" ><?= $bearingsDistances[$row['point']]['distance'] ?></td>
-					<td <?= $rowClass ?> align="center" valign="top"><input  name="time" type="text" class="highlight totTime" id="totTime-<?=$number?>" size="3" readonly="readonly" /></td>
+					<td <?= $rowClass ?> align="center" valign="top"><?php if ($number < count($route)-1 ): ?><input  name="time" type="text" class="highlight totTime" id="totTime-<?=$number?>" size="3" readonly="readonly" /><?php endif; ?></td>
 					<td <?= $rowClass ?> >&nbsp;</td>
 					<td <?= $rowClass ?> align="center"><?= $row['frequency'] ?></td>
 					<td <?= $rowClass ?> align="center">&nbsp;</td>
@@ -264,7 +212,7 @@ calculateFuelBurn();
 					<td <?= $rowClass ?> align="left">&nbsp;<?= $route[$rowNumber]['point'] ?></td>
 					<td <?= $rowClass ?> align="center"></td>
 					<td <?= $rowClass ?> colspan="3" align="left">&nbsp;</td>
-					<td <?= $rowClass ?> align="center" ><input class="highlight heading" name="heading" id="heading-<?=$number?>"  type="text" size="4" readonly="readonly" /></td>
+					<td <?= $rowClass ?> align="center" ><?php if ($number < count($route)-1 ): ?><input class="highlight heading" name="heading" id="heading-<?=$number?>"  type="text" size="4" readonly="readonly" /><?php endif; ?></td>
 					<td <?= $rowClass ?> colspan="3" align="left" valign="top">&nbsp;</td>
 					<td <?= $rowClass ?> >&nbsp;</td>
 					<td <?= $rowClass ?> align="center">&nbsp;</td>
@@ -296,7 +244,7 @@ calculateFuelBurn();
                     </tr>
                     <tr>
                       <th align="left">Enroute</th>
-                      <td align="center"><input name="enroute" class="inputs fuelSum" type="text" id="enroute" size="3" readonly="readonly" value="<?= $parser->getTotalTime() ?>" />min</td>
+                      <td align="center"><input name="enroute" class="inputs fuelSum" type="text" id="enroute" size="3" readonly="readonly" value="" />min</td>
                     </tr>
                     <tr>
                       <th align="left">Diversion</th>
