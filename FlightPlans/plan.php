@@ -76,16 +76,32 @@ calculateFuelBurn();
 	  });
 
           function calcWindDirVelocity(element, index) {
-            var dirVelocity = FlightCalculator.parseWinDirVelocity(element.val());
-            var trueAS = $("#tas").val();
-            var trueTrack = $("#trueTrack-" + index).val();
+              var dirVelocity = FlightCalculator.parseWinDirVelocity(element.val());
+              var trueAS = $("#tas").val();
+              var trueTrack = $("#trueTrack-" + index).val();
             
-            FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], trueTrack, trueAS);
+              FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], trueTrack, trueAS);
+            
+              if ( index == 0 ) {
+                  $(".windVel").each(function(i, e) {$e = $(e); $e.val(element.val())});
+                  $(".heading").each(function(i, e) {
+                      $e = $(e);
+                      FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + i).val(), trueAS);
+                      $e.val(FlightCalculator.magHeading);
+                  });
+                  $(".gsKnots").each(function(i, e) {
+                      $e = $(e);
+                      FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + i).val(), trueAS);
+                      $e.val(FlightCalculator.groundSpd);
+                  });
+                  $(".drift").each(function(i, e) {
+                      $e = $(e);
+                      FlightCalculator.GndSpdCrsWca(dirVelocity[0], dirVelocity[1], $("#trueTrack-" + i).val(), trueAS);
+                      $e.val(FlightCalculator.windCA);
+                  });
+              } else {
 
-            $(".windVel").each(function(i, e) {$e = $(e); $e.val(element.val())});
-            $(".heading").each(function(i, e) {$e = $(e); $e.val(FlightCalculator.magHeading)});
-            $(".gsKnots").each(function(i, e) {$e = $(e); $e.val(FlightCalculator.groundSpd)});
-            $(".drift").each(function(i, e) {$e = $(e); $e.val(FlightCalculator.windCA)});
+              }
           }
 
 
@@ -210,11 +226,11 @@ calculateFuelBurn();
 					<td <?= $alterRowClass ?> rowspan="2" align="center"><?= $rowNumber ?></td>
 					<td <?= $rowClass ?> align="left">&nbsp;<strong><?= $row['point'] ?></strong></td>
 					<td <?= $rowClass ?> align="center"><strong class="red"><?= $row['altitude'] ?></strong></td>
-					<td <?= $rowClass ?> align="center"><input class="inputs trueTrack" name="trueTrack" id="trueTrack-<?=$rowNumber?>" type="text" size="5" value="<?= $bearingsDistances[$row['point']]['bearing'] ?>" readonly="readonly"  /></td>
-					<td <?= $rowClass ?> align="center"><input onchange="calcWindDirVelocity($(this), <?=$rowNumber?>);" name="windVel" class="inputs windVel" type="text" id="windVel1" size="6" value="000/00" /></td>
+					<td <?= $rowClass ?> align="center"><input class="inputs trueTrack" name="trueTrack" id="trueTrack-<?=$number?>" type="text" size="5" value="<?= $bearingsDistances[$row['point']]['bearing'] ?>" readonly="readonly"  /></td>
+					<td <?= $rowClass ?> align="center"><input onchange="calcWindDirVelocity($(this), <?=$number?>);" name="windVel" class="inputs windVel" type="text" id="windVel1" size="6" value="000/00" /></td>
 					<td <?= $rowClass ?> align="center"><input name="magVar" type="text" class="inputs magVar" size="4" maxlength="4" value='0' readonly="readonly" /></td>
-					<td <?= $rowClass ?> align="center"><input class="inputs drift" name="drift" id="drift-<?=$rowNumber?>" type="text" size="5" readonly="readonly"  /></td>
-					<td <?= $rowClass ?> align="center" valign="top"><input class="inputs gsKnots" name="avgSpeed" id="avgSpeed-<?= $rowNumber?>"  type="text" size="3" readonly="readonly" /></td>
+					<td <?= $rowClass ?> align="center"><input class="inputs drift" name="drift" id="drift-<?=$number?>" type="text" size="5" readonly="readonly"  /></td>
+					<td <?= $rowClass ?> align="center" valign="top"><input class="inputs gsKnots" name="avgSpeed" id="avgSpeed-<?= $number?>"  type="text" size="3" readonly="readonly" /></td>
 					<td <?= $rowClass ?> align="center"><?= $bearingsDistances[$row['point']]['distance'] ?></td>
 					<td <?= $rowClass ?> align="center" valign="top"><input  name="time" type="text" class="highlight totTime" size="3" readonly="readonly" /></td>
 					<td <?= $rowClass ?> >&nbsp;</td>
@@ -226,7 +242,7 @@ calculateFuelBurn();
 					<td <?= $rowClass ?> align="left">&nbsp;<?= $route[$rowNumber]['point'] ?></td>
 					<td <?= $rowClass ?> align="center"></td>
 					<td <?= $rowClass ?> colspan="3" align="left">&nbsp;</td>
-					<td <?= $rowClass ?> align="center" ><input class="highlight heading" name="heading" id="heading-<?=$rowNumber?>"  type="text" size="4" readonly="readonly" /></td>
+					<td <?= $rowClass ?> align="center" ><input class="highlight heading" name="heading" id="heading-<?=$number?>"  type="text" size="4" readonly="readonly" /></td>
 					<td <?= $rowClass ?> colspan="3" align="left" valign="top">&nbsp;</td>
 					<td <?= $rowClass ?> >&nbsp;</td>
 					<td <?= $rowClass ?> align="center">&nbsp;</td>

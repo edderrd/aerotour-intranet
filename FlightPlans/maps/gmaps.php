@@ -6,6 +6,7 @@
                 <script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAFW8NgZfoxFc3Ht4HxIygBRTCv78iwvdsoKGinnS7fKaSmV9tzhT0xVaw1b-i4zI5DRJgo--17f5TBw" type="text/javascript"></script>
                 <script src="../js/maps.js" type="text/javascript"></script>
                 <script src="../js/elabel.js" type="text/javascript"></script>
+                <script src="../js/BdccArrowedPolyline.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			
                         function initialize() {
@@ -32,11 +33,6 @@
                         font-size: 10px;
                         font-family: Verdana;
                         text-align: center;
-                        /*-webkit-transform: rotate(-90deg);
-                        -moz-transform: rotate(-90deg);
-                        -o-transform: rotate(-90deg);
-                        transform: rotate(-90deg);
-                        rotation: -90deg;*/
                     }
                 </style>
     </head> 

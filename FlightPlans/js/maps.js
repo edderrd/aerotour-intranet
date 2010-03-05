@@ -296,6 +296,7 @@ Maps = {
                 // elabel creation
                 var label = new ELabel(pointA, distance + "nm/" + bearing + "&deg;", "elabel", new GSize(-50,10), 100, null, bearing+90);
                 this.gmap.addOverlay(label);
+              
             }
         }
     },

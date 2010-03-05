@@ -22,5 +22,5 @@ FlightCalculator = {
         var dirVelocity = winDirVelocity.split("/");
         
         return dirVelocity;
-    }
+    }    
 }
